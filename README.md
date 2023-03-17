@@ -9,7 +9,7 @@ TLDR: Waldo/Wilma is designated at the top of the screen. You have 1 minute to f
 
 
 ## Wireframe 👀 
-![Waldo Great Escape Wireframe](https://github.com/juanedcabrera/Project1-Game/blob/main/Waldo%20Great%20Escape%20Wireframe%20-%20Updated.png "Waldo Great Escape Wireframe")
+![Waldo Great Escape Wireframe](https://github.com/juanedcabrera/Project1-Game/blob/main/Waldo's%20Great%20Escape%20Wireframe%20-%20Updated.png?raw=true "Waldo Great Escape Wireframe")
 
 
 ## Tech Stack 💻
