@@ -1,7 +1,7 @@
 
 # Waldo's Great Escape 🏃
 
-Waldo is tired of waiting to be found. He’s been on the run for quite some time and continues to be caught. Now he’s on the run and is moving through the crowded streets of New York City. You heard he was in broadway and are keeping your eye out in case you see him pass by you. He has many disguises now so it’s no longer just the red striped lanky guy with a beanie. 0Catch him and you win, don’t and he will be gone forever.
+Waldo is tired of waiting to be found. He’s been on the run for quite some time and continues to be caught. Now he’s on the run and is moving through the crowded streets of New York City. You heard he was in broadway and are keeping your eye out in case you see him pass by you. He has many disguises now so it’s no longer just the red striped lanky guy with a beanie. Catch him and you win, don’t and he will be gone forever.
 
 
 
