@@ -23,9 +23,8 @@ I plan on using:
 ## MVP 🏆
 
 - Start button to start the game
-- Create image assets (I think I will use Open Peeps)
-- Have images move from right to left
-- Have images move from left to right
+- Have rect boxes move from right to left
+- Have rect boxes move from left to right
 - Randomize the speed of which they show
 - Designate one to be “Waldo” and put the image on the screen
 - Create a hitbox on the Waldo image
@@ -35,6 +34,7 @@ I plan on using:
 - Write a rule/how to play section
 
 ## Stretch Goals ⭐
+- Create image assets (I think I will use Open Peeps)
 - Have images move slightly up and down to mimic walking
 - Randomize the images
 - Create a level system that loops next number and changes attributes
