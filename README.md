@@ -32,6 +32,7 @@ I plan on using:
 - Detect a click on hitbox
 - Put a timer that stops the game
 - If Waldo is clicked within timer display winner image, if not loser image
+- Write a rule/how to play section
 
 ## Stretch Goals ⭐
 - Have images move slightly up and down to mimic walking
