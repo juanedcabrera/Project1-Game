@@ -47,6 +47,7 @@ const peep2 = new Peep(0, 0, 0, 0, "yellow", 5, "right");
 const peep3 = new Peep(0, 0, 0, 0, "yellow", 5, "left");
 const peep4 = new Peep(0, 0, 0, 0, "yellow", 5, "left");
 const peep5 = new Peep(0, 0, 0, 0, "yellow", 5, "right");
+const peep6 = new Peep(0, 0, 0, 0, "red", 5, "right")
 
 console.log(peepArray); // worked
 
