@@ -1,7 +1,6 @@
 // TO-DO
 // Canvas not clearing at gameEnd
 
-
 // DOM Selectors
 const startBtn = document.querySelector("#startBtn");
 const canvas = document.querySelector("#canvas");
@@ -65,62 +64,65 @@ function randomizePeep(peep) {
 console.log(peepArray);
 
 // GAME MECHANICS
+
 let gameLoopInterval;
 let timeSecond = 60;
-let gameOver = true
-
+let gameOver = true;
 
 // TIMER
 
 timer.innerText = `:${timeSecond}`;
 
-function countDown () {
-const timerInterval = setInterval(() => {
-  timeSecond--;
-  timer.innerText = `:${timeSecond}`;
-  if (timeSecond <= 0) {
-    clearInterval(timerInterval);
-    gameEnd ()
-    timeSecond = 60
-    timer.innerText = `:${timeSecond}`
-  }
-}, 1000);
-}
+let timeInterval;
 
-
+startBtn.addEventListener("click", function() {
+  timeInterval = setInterval(() => {
+    timeSecond--;
+    timer.innerText = `:${timeSecond}`;
+    if (timeSecond <= 0) {
+      clearInterval(timeInterval);
+      gameEnd();
+      timeSecond = 60;
+      timer.innerText = `:${timeSecond}`;
+    }
+  }, 1000);
+});
 
 // START GAME
 function startGame() {
   gameLoopInterval = setInterval(gameLoop, 60);
   startBtn.disabled = true;
-  countDown ()
-  gameOver = false
+  timeInterval;
+  gameOver = false;
 }
 
 startBtn.addEventListener("click", startGame);
 
+// GAME LOOP
+
 function gameLoop() {
-    if (!gameOver) {
-  // this is for the movement of the boxes
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  // making peeps appear
-  peepArray.forEach((item) => {
-    if (item.direction === "left") {
-      item.x -= item.speed;
-    } else {
-      item.x += item.speed;
-    }
-    if (item.x < -item.width || item.x > canvas.width) {
-      randomizePeep(item);
-    }
-    // draw peeps
-    ctx.fillStyle = item.color;
-    ctx.fillRect(item.x, item.y, item.width, item.height);
-  });
-}
+  if (!gameOver) {
+    // this is for the movement of the boxes
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // making peeps appear
+    peepArray.forEach((item) => {
+      if (item.direction === "left") {
+        item.x -= item.speed;
+      } else {
+        item.x += item.speed;
+      }
+      if (item.x < -item.width || item.x > canvas.width) {
+        randomizePeep(item);
+      }
+      // draw peeps
+      ctx.fillStyle = item.color;
+      ctx.fillRect(item.x, item.y, item.width, item.height);
+    });
+  }
 }
 
 // WALDO
+
 //When you click on waldo initiates gameEnd function
 canvas.addEventListener("click", (e) => {
   if (
@@ -129,21 +131,22 @@ canvas.addEventListener("click", (e) => {
     e.offsetY >= waldo.y &&
     e.offsetY <= waldo.y + waldo.height
   ) {
-    gameEnd ()
-    timeSecond = 60
-    timer.innerText = `:${timeSecond}`
+    gameEnd();
+    clearInterval(timeInterval);
+    timeSecond = 60;
+    timer.innerText = `:${timeSecond}`;
   }
 });
 
 // END GAME
 function gameEnd() {
-    // peepArray = []   This worked but it didn't allow for user to play again
-    clearInterval(gameLoopInterval);
+  clearInterval(timeInterval);
+  clearInterval(gameLoopInterval);
+  timeSecond = 60;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  gameOver = true
+  gameOver = true;
   startBtn.disabled = false;
-  ctx.fillText(`GAME OVER`, canvas.width / 2, canvas.height / 2)
-
+  ctx.fillText(`GAME OVER`, canvas.width / 2, canvas.height / 2);
 }
 
 // // FUNCTIONS
@@ -155,7 +158,6 @@ function gameEnd() {
 // game loop2 if waldo is clicked or timer has elapsed to fire for end function
 
 // function for start - when start button is clicked - waldo is picked, displayed, timer (started)
-
 
 // // NOTES:
 
