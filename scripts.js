@@ -6,11 +6,11 @@
 const startBtn = document.querySelector("#startBtn");
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
+const timer = document.querySelector("#timer");
 const stage = {
   width: 800,
   height: 250,
 };
-
 
 // peep array
 let peepArray = [];
@@ -40,37 +40,71 @@ class Peep {
   }
 }
 
-const waldo = new Peep(0, 0, 0, 0, "red", 5, "right")
+const waldo = new Peep(0, 0, 0, 0, "red", 5, "right");
 const peep1 = new Peep(0, 0, 0, 0, "yellow", 5, "left");
 const peep2 = new Peep(0, 0, 0, 0, "yellow", 5, "right");
 const peep3 = new Peep(0, 0, 0, 0, "yellow", 5, "left");
 const peep4 = new Peep(0, 0, 0, 0, "yellow", 5, "left");
 const peep5 = new Peep(0, 0, 0, 0, "yellow", 5, "right");
 
-
 console.log(peepArray); // worked
 
 function randomizePeep(peep) {
   // Generate new values for the selected peep
-//   const newValues = {
-    peep.x = Math.random() < 0.5 ? 0 : 750;
-    peep.y = stage.height + 205 - Math.floor(Math.random() * 250);
-    peep.width = 50;
-    peep.height = 50;
-    peep.speed = Math.floor(Math.random() * (30 - 5 + 1) + 5);
-    peep.direction = Math.random() < 0.5 ? "left" : "right";
+  //   const newValues = {
+  peep.x = Math.random() < 0.5 ? 0 : 750;
+  peep.y = stage.height + 205 - Math.floor(Math.random() * 250);
+  peep.width = 50;
+  peep.height = 50;
+  peep.speed = Math.floor(Math.random() * (30 - 5 + 1) + 5);
+  peep.direction = Math.random() < 0.5 ? "left" : "right";
 }
 
 console.log(peepArray);
 
-let gameLoopInterval
+let gameLoopInterval;
+let timerInterval;
 
 function startGame() {
-    gameLoopInterval = setInterval(gameLoop, 60);
-    startBtn.disabled = true;
+  gameLoopInterval = setInterval(gameLoop, 60);
+  startBtn.disabled = true;
+  let timeSecond = 60;
+  timer.innerText = `:${timeSecond}`;
+
+  const countDown = setInterval(() => {
+    timeSecond--;
+    timer.innerHTML = `:${timeSecond}`;
+    if (timeSecond <= 0 || timeSecond < 1) {
+      clearInterval(countDown);
+    }
+  }, 1000);
 }
 
-startBtn.addEventListener("click", startGame)
+startBtn.addEventListener("click", startGame);
+
+startTimer = () => {
+  // Firs twe start by clearing the existing timer, in case of a restart
+  clearInterval(timerInterval);
+  // Then we clear the variables
+  let second = 60,
+    // Next we set a interval every 1000 ms
+    timerInterval = setInterval(function () {
+      // Toggle the odd class every interval
+      timer.classList.toggle("odd");
+
+      // We set the timer text to include a two digit representation
+      timer.innerHTML = second < 10 ? "0" + second : second;
+
+      // Next, we add a new second since one second is passed
+      second--;
+
+      // We check if the second equals 60 "one minute"
+      if (second == 0) {
+        // If so, we add a minute and reset our seconds to 0
+        timer.innerText = "0";
+      }
+    }, 1000);
+};
 
 function gameLoop() {
   // business logic of the game
@@ -82,7 +116,7 @@ function gameLoop() {
       item.x += item.speed;
     }
     if (item.x < -item.width || item.x > canvas.width) {
-        randomizePeep(item)
+      randomizePeep(item);
     }
 
     ctx.fillStyle = item.color;
@@ -92,19 +126,20 @@ function gameLoop() {
 
 //When you click on waldo initiates gameEnd function
 canvas.addEventListener("click", (e) => {
-    if (
-        e.offsetX >= waldo.x &&
-        e.offsetX <= waldo.x + waldo.width &&
-        e.offsetY >= waldo.y &&
-        e.offsetY <= waldo.y + waldo.height
-    ) {
-        gameEnd ()
-    }
-})
+  if (
+    e.offsetX >= waldo.x &&
+    e.offsetX <= waldo.x + waldo.width &&
+    e.offsetY >= waldo.y &&
+    e.offsetY <= waldo.y + waldo.height
+  ) {
+    gameEnd();
+  }
+});
 
-function gameEnd () {
-    clearInterval(gameLoopInterval)
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+function gameEnd() {
+  clearInterval(gameLoopInterval);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  startBtn.disabled = false;
 }
 // pulls random (peep) and removes them from all peeps + then when they get to end of screen it gets put back into the array - empty the properties when it goes back to the array
 
@@ -144,3 +179,4 @@ function gameEnd () {
 // //start button that starts the game
 
 // // timer that will end the game
+// const timeH = document.querySelector('h4')
