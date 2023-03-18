@@ -3,50 +3,75 @@
 // Worried about who goes is displayed forward vs backward.
 
 // DOM Selectors
-const startBtn = document.querySelector('#startBtn')
-const canvas = document.querySelector('#canvas')
+const startBtn = document.querySelector("#startBtn");
+const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 const stage = {
-    width: 0,
-    height: 0,
-}
+  width: 800,
+  height: 250,
+};
 
 // array of all (peeps) - each peep should have rectbox/image (peep will be a object and use constructor to make new peeps) -image is hardcoded onto the peep grabbing image from assets contains (speed) (starting point) (direction) will be properties that are blank but randomized later
 
-let peepArray = []
+// peep array
+let peepArray = [];
 
 // constructor to make peeps and it adds the peep to the peep array
 class Peep {
-    constructor (image, speed, startPoint, direction) {
-        this.image = image;
-        this.speed = speed;
-        this.startPoint = startPoint;
-        this.direction = direction;
-        peepArray.push(this)
-    }
+  constructor(x, y, width, height, color) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.color = color;
+    this.waldo = false;
+  }
+  render() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+}
+const gameLoopInterval = setInterval(gameLoop, 60);
+
+const peep1 = new Peep(0, 0, 0, 0, "yellow");
+const peep2 = new Peep(0, 0, 0, 0, "yellow");
+const peep3 = new Peep(0, 0, 0, 0, "yellow");
+const peep4 = new Peep(0, 0, 0, 0, "yellow");
+const peep5 = new Peep(0, 0, 0, 0, "yellow");
+
+console.log(Peep.length); // worked
+
+function addRandomPeep() {
+  // Generate a randomPeep object with x and y values within the size of the stage
+  const randomPeep = {
+    x: Math.random() < 0.5 ? 0 : 750,
+    y: Math.floor(Math.random() * (stage.height)),
+    width: 50,
+    height: 50,
+  };
+
+  // Add the randomPeep to the peepArray
+  peepArray.push(randomPeep);
 }
 
-// peep array
-peepArray = []
+// Call the addRandomPeep function to add a randomPeep to the peepArray
+addRandomPeep();
 
-const newPeep = new Peep(peepImages[0], 0, 0, 0);
+// You can now access the added randomPeep object in the peepArray by its index.
+console.log(peepArray);
 
-console.log(peepArray) // worked
+function gameLoop() {
+  // business logic of the game
+  //   ctx.clearRect(0,0,canvas.width,canvas.height)
+  peepArray.forEach((item) => {
+    ctx.fillStyle = item.color;
+    ctx.fillRect(item.x, item.y, item.width, item.height);
+  });
+}
 
-// get a random peep from the peepArray
-const randomPeep = peepArray[Math.floor(Math.random() * peepArray.length)];
+// pulls random (peep) and removes them from all peeps + then when they get to end of screen it gets put back into the array - empty the properties when it goes back to the array
 
-// assign properties to the peep
-randomPeep.startPoint = { x: 0, y: 0 }; // set the starting point
-randomPeep.direction = { x: 1, y: 0 }; // set the direction
-randomPeep.speed = 5; // set the speed
-
-
-
-
-// pulls random (peep) and removes them from all peeps + then when they get to end of screen it gets put back into the array - empty the properties when it goes back to the array 
-
-// stage where they walk (screen) - to make wide enough to fill and not look distorted - will need hardcoded - 
+// stage where they walk (screen) - to make wide enough to fill and not look distorted - will need hardcoded -
 
 // // FUNCTIONS
 
@@ -55,7 +80,6 @@ randomPeep.speed = 5; // set the speed
 // function direction and it should be random but tied to the starting point (starting on left direction should be right and starting on right direction should left)
 
 // function walk speed and it should be random
-
 
 // function reset peeps to put back into and properties should be removed except for image. farthest left of peep once it goes past the right of screen and farthest right of peep should once it goes past the left of screen
 
@@ -77,7 +101,7 @@ randomPeep.speed = 5; // set the speed
 
 // // waldo - randomize. When waldo is picked update Waldo Box in HTML and thats controlled by the [i]
 // /// if statement saying if waldo hasn't been seen in certain time (15 seconds) he has to be picked
-// // waldo hit detection // hitdetection parameter - pass on a click event - xy value and collision detection point of xy value 
+// // waldo hit detection // hitdetection parameter - pass on a click event - xy value and collision detection point of xy value
 // // if waldo is clicked than end the game
 
 // //start button that starts the game
