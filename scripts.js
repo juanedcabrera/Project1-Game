@@ -1,6 +1,6 @@
 // TO-DO
 // Canvas not clearing at gameEnd
-// Display isn't hooked up
+
 
 // DOM Selectors
 const startBtn = document.querySelector("#startBtn");
@@ -12,6 +12,7 @@ const stage = {
   height: 250,
 };
 
+// CREATE PEEPS
 // peep array
 let peepArray = [];
 
@@ -49,6 +50,7 @@ const peep5 = new Peep(0, 0, 0, 0, "yellow", 5, "right");
 
 console.log(peepArray); // worked
 
+// RANDOMIZE PEEP
 function randomizePeep(peep) {
   // Generate new values for the selected peep
   //   const newValues = {
@@ -62,34 +64,46 @@ function randomizePeep(peep) {
 
 console.log(peepArray);
 
+// GAME MECHANICS
 let gameLoopInterval;
+let timeSecond = 60;
+let gameOver = true
 
 
-let timeSecond = 5;
+// TIMER
+
 timer.innerText = `:${timeSecond}`;
 
 function countDown () {
 const timerInterval = setInterval(() => {
   timeSecond--;
   timer.innerText = `:${timeSecond}`;
-  if (timeSecond <= 0 || timeSecond < 1) {
+  if (timeSecond <= 0) {
     clearInterval(timerInterval);
     gameEnd ()
+    timeSecond = 60
+    timer.innerText = `:${timeSecond}`
   }
 }, 1000);
 }
 
+
+
+// START GAME
 function startGame() {
   gameLoopInterval = setInterval(gameLoop, 60);
   startBtn.disabled = true;
   countDown ()
+  gameOver = false
 }
 
 startBtn.addEventListener("click", startGame);
 
 function gameLoop() {
-  // business logic of the game
+    if (!gameOver) {
+  // this is for the movement of the boxes
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // making peeps appear
   peepArray.forEach((item) => {
     if (item.direction === "left") {
       item.x -= item.speed;
@@ -99,12 +113,14 @@ function gameLoop() {
     if (item.x < -item.width || item.x > canvas.width) {
       randomizePeep(item);
     }
-
+    // draw peeps
     ctx.fillStyle = item.color;
     ctx.fillRect(item.x, item.y, item.width, item.height);
   });
 }
+}
 
+// WALDO
 //When you click on waldo initiates gameEnd function
 canvas.addEventListener("click", (e) => {
   if (
@@ -113,17 +129,21 @@ canvas.addEventListener("click", (e) => {
     e.offsetY >= waldo.y &&
     e.offsetY <= waldo.y + waldo.height
   ) {
-    gameEnd();
+    gameEnd ()
+    timeSecond = 60
+    timer.innerText = `:${timeSecond}`
   }
 });
 
+// END GAME
 function gameEnd() {
     // peepArray = []   This worked but it didn't allow for user to play again
     clearInterval(gameLoopInterval);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.reset()
+  gameOver = true
   startBtn.disabled = false;
-  timeSecond = 60
+  ctx.fillText(`GAME OVER`, canvas.width / 2, canvas.height / 2)
+
 }
 
 // // FUNCTIONS
@@ -140,10 +160,4 @@ function gameEnd() {
 // // NOTES:
 
 // // waldo - randomize. When waldo is picked update Waldo Box in HTML and thats controlled by the [i]
-// /// if statement saying if waldo hasn't been seen in certain time (15 seconds) he has to be picked
-
-
-
-
-// // timer that will end the game
-
+// /// if statement saying if waldo hasn't been seen in certain time (15 seconds) he has to be picke
