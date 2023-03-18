@@ -1,7 +1,5 @@
 // TO-DO
 // Canvas not clearing at gameEnd
-// Timer not clearing at gameEnd
-// Timer not causing gameEnd
 // Display isn't hooked up
 
 // DOM Selectors
@@ -67,7 +65,7 @@ console.log(peepArray);
 let gameLoopInterval;
 
 
-let timeSecond = 60;
+let timeSecond = 5;
 timer.innerText = `:${timeSecond}`;
 
 function countDown () {
@@ -76,6 +74,7 @@ const timerInterval = setInterval(() => {
   timer.innerText = `:${timeSecond}`;
   if (timeSecond <= 0 || timeSecond < 1) {
     clearInterval(timerInterval);
+    gameEnd ()
   }
 }, 1000);
 }
@@ -119,10 +118,12 @@ canvas.addEventListener("click", (e) => {
 });
 
 function gameEnd() {
-  clearInterval(gameLoopInterval, countDown.timerInterval);
+    // peepArray = []   This worked but it didn't allow for user to play again
+    clearInterval(gameLoopInterval);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.reset()
   startBtn.disabled = false;
+  timeSecond = 60
 }
 
 // // FUNCTIONS
