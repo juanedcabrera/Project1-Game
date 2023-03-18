@@ -45,7 +45,7 @@ function addRandomPeep() {
   // Generate a randomPeep object with x and y values within the size of the stage
   const randomPeep = {
     x: Math.random() < 0.5 ? 0 : 750,
-    y: Math.floor(Math.random() * (stage.height)),
+    y: stage.height + 205 - Math.floor(Math.random() * 250),
     width: 50,
     height: 50,
   };
