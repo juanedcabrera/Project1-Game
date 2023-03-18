@@ -40,7 +40,7 @@ class Peep {
     );
   }
 }
-const gameLoopInterval = setInterval(gameLoop, 60);
+
 
 const peep1 = new Peep(0, 0, 0, 0, "yellow", 5, "left");
 const peep2 = new Peep(0, 0, 0, 0, "yellow", 5, "right");
@@ -74,6 +74,15 @@ randomizePeeps();
 
 // You can now access the added randomPeep object in the peepArray by its index.
 console.log(peepArray);
+
+let gameLoopInterval
+
+function startGame() {
+    gameLoopInterval = setInterval(gameLoop, 60);
+    startBtn.disabled = true;
+}
+
+startBtn.addEventListener("click", startGame)
 
 function gameLoop() {
   // business logic of the game
