@@ -11,7 +11,6 @@ const stage = {
   height: 250,
 };
 
-// array of all (peeps) - each peep should have rectbox/image (peep will be a object and use constructor to make new peeps) -image is hardcoded onto the peep grabbing image from assets contains (speed) (starting point) (direction) will be properties that are blank but randomized later
 
 // peep array
 let peepArray = [];
@@ -41,13 +40,13 @@ class Peep {
   }
 }
 
-
+const waldo = new Peep(0, 0, 0, 0, "red", 5, "right")
 const peep1 = new Peep(0, 0, 0, 0, "yellow", 5, "left");
 const peep2 = new Peep(0, 0, 0, 0, "yellow", 5, "right");
 const peep3 = new Peep(0, 0, 0, 0, "yellow", 5, "left");
 const peep4 = new Peep(0, 0, 0, 0, "yellow", 5, "left");
 const peep5 = new Peep(0, 0, 0, 0, "yellow", 5, "right");
-const peep6 = new Peep(0, 0, 0, 0, "red", 5, "right")
+
 
 console.log(peepArray); // worked
 
@@ -62,8 +61,6 @@ function randomizePeep(peep) {
     peep.direction = Math.random() < 0.5 ? "left" : "right";
 }
 
-
-// You can now access the added randomPeep object in the peepArray by its index.
 console.log(peepArray);
 
 let gameLoopInterval
@@ -93,6 +90,22 @@ function gameLoop() {
   });
 }
 
+//When you click on waldo initiates gameEnd function
+canvas.addEventListener("click", (e) => {
+    if (
+        e.offsetX >= waldo.x &&
+        e.offsetX <= waldo.x + waldo.width &&
+        e.offsetY >= waldo.y &&
+        e.offsetY <= waldo.y + waldo.height
+    ) {
+        gameEnd ()
+    }
+})
+
+function gameEnd () {
+    clearInterval(gameLoopInterval)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 // pulls random (peep) and removes them from all peeps + then when they get to end of screen it gets put back into the array - empty the properties when it goes back to the array
 
 // stage where they walk (screen) - to make wide enough to fill and not look distorted - will need hardcoded -
