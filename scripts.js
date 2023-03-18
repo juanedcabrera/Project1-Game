@@ -63,48 +63,28 @@ function randomizePeep(peep) {
 console.log(peepArray);
 
 let gameLoopInterval;
-let timerInterval;
+
+
+let timeSecond = 60;
+timer.innerText = `:${timeSecond}`;
+
+function countDown () {
+const timerInterval = setInterval(() => {
+  timeSecond--;
+  timer.innerText = `:${timeSecond}`;
+  if (timeSecond <= 0 || timeSecond < 1) {
+    clearInterval(timerInterval);
+  }
+}, 1000);
+}
 
 function startGame() {
   gameLoopInterval = setInterval(gameLoop, 60);
   startBtn.disabled = true;
-  let timeSecond = 60;
-  timer.innerText = `:${timeSecond}`;
-
-  const countDown = setInterval(() => {
-    timeSecond--;
-    timer.innerHTML = `:${timeSecond}`;
-    if (timeSecond <= 0 || timeSecond < 1) {
-      clearInterval(countDown);
-    }
-  }, 1000);
+  countDown ()
 }
 
 startBtn.addEventListener("click", startGame);
-
-startTimer = () => {
-  // Firs twe start by clearing the existing timer, in case of a restart
-  clearInterval(timerInterval);
-  // Then we clear the variables
-  let second = 60,
-    // Next we set a interval every 1000 ms
-    timerInterval = setInterval(function () {
-      // Toggle the odd class every interval
-      timer.classList.toggle("odd");
-
-      // We set the timer text to include a two digit representation
-      timer.innerHTML = second < 10 ? "0" + second : second;
-
-      // Next, we add a new second since one second is passed
-      second--;
-
-      // We check if the second equals 60 "one minute"
-      if (second == 0) {
-        // If so, we add a minute and reset our seconds to 0
-        timer.innerText = "0";
-      }
-    }, 1000);
-};
 
 function gameLoop() {
   // business logic of the game
@@ -140,6 +120,8 @@ function gameEnd() {
   clearInterval(gameLoopInterval);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   startBtn.disabled = false;
+  timeSecond = 60
+  timer.innerText = 60
 }
 // pulls random (peep) and removes them from all peeps + then when they get to end of screen it gets put back into the array - empty the properties when it goes back to the array
 
