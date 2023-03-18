@@ -18,55 +18,65 @@ let peepArray = [];
 
 // constructor to make peeps and it adds the peep to the peep array
 class Peep {
-  constructor(x, y, width, height, color) {
+  constructor(x, y, width, height, color, speed) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
     this.color = color;
-    this.waldo = false;
+    this.speed = speed;
+    this.direction
+    peepArray.push(this)
   }
   render() {
     ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillRect(this.x, this.y, this.width, this.height, this.speed, this.direction);
   }
 }
 const gameLoopInterval = setInterval(gameLoop, 60);
 
-const peep1 = new Peep(0, 0, 0, 0, "yellow");
-const peep2 = new Peep(0, 0, 0, 0, "yellow");
-const peep3 = new Peep(0, 0, 0, 0, "yellow");
-const peep4 = new Peep(0, 0, 0, 0, "yellow");
-const peep5 = new Peep(0, 0, 0, 0, "yellow");
+const peep1 = new Peep(0, 0, 0, 0, "yellow", 5, "left");
+const peep2 = new Peep(0, 0, 0, 0, "yellow", 5, "right");
+const peep3 = new Peep(0, 0, 0, 0, "yellow", 5, "left");
+const peep4 = new Peep(0, 0, 0, 0, "yellow", 5, "left");
+const peep5 = new Peep(0, 0, 0, 0, "yellow", 5, "right");
 
-console.log(Peep.length); // worked
+console.log(peepArray); // worked
 
-function addRandomPeep() {
-  // Generate a randomPeep object with x and y values within the size of the stage
-  const randomPeep = {
-    x: Math.random() < 0.5 ? 0 : 750,
-    y: stage.height + 205 - Math.floor(Math.random() * 250),
-    width: 50,
-    height: 50,
-  };
+function randomizePeeps() {
+    // Select a random peep from the peep array
+    const randomIndex = Math.floor(Math.random() * peepArray.length);
+    const peep = peepArray[randomIndex];
+  
+    // Generate new values for the selected peep
+    const newValues = {
+      x: Math.random() < 0.5 ? 0 : 750,
+      y: stage.height + 205 - Math.floor(Math.random() * 250),
+      width: 50,
+      height: 50,
+      speed: Math.floor(Math.random() * (30 - 5 + 1) + 5),
+      direction: peep.direction,
+    };
+  
+    // Update the selected peep with the new values
+    Object.assign(peep, newValues);
+  }
+  
 
-  // Add the randomPeep to the peepArray
-  peepArray.push(randomPeep);
-}
-
-// Call the addRandomPeep function to add a randomPeep to the peepArray
-addRandomPeep();
+randomizePeeps()
 
 // You can now access the added randomPeep object in the peepArray by its index.
 console.log(peepArray);
 
 function gameLoop() {
   // business logic of the game
-  //   ctx.clearRect(0,0,canvas.width,canvas.height)
+    ctx.clearRect(0,0,canvas.width,canvas.height)
   peepArray.forEach((item) => {
+    item.x -= item.speed
     ctx.fillStyle = item.color;
     ctx.fillRect(item.x, item.y, item.width, item.height);
   });
+
 }
 
 // pulls random (peep) and removes them from all peeps + then when they get to end of screen it gets put back into the array - empty the properties when it goes back to the array
