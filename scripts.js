@@ -51,26 +51,17 @@ const peep6 = new Peep(0, 0, 0, 0, "red", 5, "right")
 
 console.log(peepArray); // worked
 
-function randomizePeeps() {
-  // Select a random peep from the peep array
-  const randomIndex = Math.floor(Math.random() * peepArray.length);
-  const peep = peepArray[randomIndex];
-
+function randomizePeep(peep) {
   // Generate new values for the selected peep
-  const newValues = {
-    x: Math.random() < 0.5 ? 0 : 750,
-    y: stage.height + 205 - Math.floor(Math.random() * 250),
-    width: 50,
-    height: 50,
-    speed: Math.floor(Math.random() * (30 - 5 + 1) + 5),
-    direction: Math.random() < 0.5 ? "left" : "right",
-  };
-
-  // Update the selected peep with the new values
-  Object.assign(peep, newValues);
+//   const newValues = {
+    peep.x = Math.random() < 0.5 ? 0 : 750;
+    peep.y = stage.height + 205 - Math.floor(Math.random() * 250);
+    peep.width = 50;
+    peep.height = 50;
+    peep.speed = Math.floor(Math.random() * (30 - 5 + 1) + 5);
+    peep.direction = Math.random() < 0.5 ? "left" : "right";
 }
 
-randomizePeeps();
 
 // You can now access the added randomPeep object in the peepArray by its index.
 console.log(peepArray);
@@ -94,13 +85,7 @@ function gameLoop() {
       item.x += item.speed;
     }
     if (item.x < -item.width || item.x > canvas.width) {
-      // if peep is outside the canvas, reset its properties and randomize
-      item.x = Math.random() < 0.5 ? 0 : 750;
-      item.y = stage.height + 205 - Math.floor(Math.random() * 250);
-      item.width = 50;
-      item.height = 50;
-      item.speed = Math.floor(Math.random() * (30 - 5 + 1) + 5);
-      item.direction = Math.random() < 0.5 ? "left" : "right";
+        randomizePeep(item)
     }
 
     ctx.fillStyle = item.color;
