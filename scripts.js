@@ -41,18 +41,17 @@ class Peep {
 }
 
 const waldo = new Peep(0, 0, 0, 0, "red", 5, "right");
-const peep1 = new Peep(0, 0, 0, 0, "yellow", 5, "left");
-const peep2 = new Peep(0, 0, 0, 0, "yellow", 5, "right");
-const peep3 = new Peep(0, 0, 0, 0, "yellow", 5, "left");
-const peep4 = new Peep(0, 0, 0, 0, "yellow", 5, "left");
-const peep5 = new Peep(0, 0, 0, 0, "yellow", 5, "right");
+
+for (let i =0; i < 50; i++) {
+    new Peep(0, 0, 0, 0, "#F88379", 5, "left");
+}
+
+
 
 console.log(peepArray); // worked
 
 // RANDOMIZE PEEP
 function randomizePeep(peep) {
-  // Generate new values for the selected peep
-  //   const newValues = {
   peep.x = Math.random() < 0.5 ? 0 : 750;
   peep.y = stage.height + 205 - Math.floor(Math.random() * 250);
   peep.width = 50;
@@ -109,18 +108,20 @@ function gameLoop() {
     // this is for the movement of the boxes
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // making peeps appear
-    peepArray.forEach((item) => {
-      if (item.direction === "left") {
-        item.x -= item.speed;
+    peepArray.forEach((peep) => {
+      // moving the peep left or right
+      if (peep.direction === "left") {
+        peep.x -= peep.speed;
       } else {
-        item.x += item.speed;
+        peep.x += peep.speed;
       }
-      if (item.x < -item.width || item.x > canvas.width) {
-        randomizePeep(item);
+      // staying in canvas
+      if (peep.x < -peep.width || peep.x > canvas.width) {
+        randomizePeep(peep);
       }
       // draw peeps
-      ctx.fillStyle = item.color;
-      ctx.fillRect(item.x, item.y, item.width, item.height);
+      ctx.fillStyle = peep.color;
+      ctx.fillRect(peep.x, peep.y, peep.width, peep.height);
     });
   }
 }
@@ -154,8 +155,9 @@ function gameEnd() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   gameOver = true;
   startBtn.disabled = false;
-
-}
+  peepArray.forEach((peep) => {
+    randomizePeep(peep)
+})}
 
 // // FUNCTIONS
 
