@@ -84,6 +84,10 @@ startBtn.addEventListener("click", function() {
       gameEnd();
       timeSecond = 60;
       timer.innerText = `:${timeSecond}`;
+      ctx.font = "30px Arial";
+      ctx.fillStyle = "black";
+      ctx.textAlign = "center";
+      ctx.fillText("Waldo Escaped", canvas.width/2, canvas.height/2);
     }
   }, 1000);
 });
@@ -135,6 +139,10 @@ canvas.addEventListener("click", (e) => {
     clearInterval(timeInterval);
     timeSecond = 60;
     timer.innerText = `:${timeSecond}`;
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.fillText("Caught Waldo", canvas.width/2, canvas.height/2);
   }
 });
 
@@ -146,7 +154,7 @@ function gameEnd() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   gameOver = true;
   startBtn.disabled = false;
-  ctx.fillText(`GAME OVER`, canvas.width / 2, canvas.height / 2);
+
 }
 
 // // FUNCTIONS

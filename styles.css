@@ -6,3 +6,7 @@
 #canvas {
   border: 5px solid blue;
 }
+
+#rules {
+  padding: 0 10rem 0 10rem;
+}
