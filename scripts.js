@@ -1,5 +1,6 @@
 // TO-DO
-// Canvas not clearing at gameEnd
+// Add image to boxes
+// Make images move in a wave like form
 
 // DOM Selectors
 const startBtn = document.querySelector("#startBtn");
@@ -10,6 +11,27 @@ const stage = {
   width: 800,
   height: 250,
 };
+// IMAGES
+// Array to hold peep images
+let peepImageArray = []
+
+// Create image through javascript vs html
+var img = new Image();
+img.src = "assets/wilma.png";
+// makes sure image loads before function is run
+img.onload = function(){
+
+  // draw the image onto the canvas
+  ctx.drawImage(img, 0, 0, 50, 50);
+  
+  // get the image data from the canvas
+  var imageData = ctx.getImageData(0, 0, 50, 50);
+  
+  // add the image data to the peepImageArray
+  peepImageArray.push(imageData);
+}
+console.log (peepImageArray) // worked
+
 
 // CREATE PEEPS
 // peep array
@@ -28,7 +50,7 @@ class Peep {
     this.direction = direction;
     peepArray.push(this);
   }
-  // add image to render
+  // add image to render - this is what is making my image
   render() {
     ctx.fillStyle = this.color;
     ctx.fillRect(
@@ -161,18 +183,3 @@ function gameEnd() {
   peepArray.forEach((peep) => {
     randomizePeep(peep)
 })}
-
-// // FUNCTIONS
-
-// function for random waldo picked by choosing an indice and displaying the waldo in the waldo box - - this will need to be tied to the start button
-
-// function for end - end game logic, clear stage and show end screen one for winmner and one for loser (timer ran out)
-
-// game loop2 if waldo is clicked or timer has elapsed to fire for end function
-
-// function for start - when start button is clicked - waldo is picked, displayed, timer (started)
-
-// // NOTES:
-
-// // waldo - randomize. When waldo is picked update Waldo Box in HTML and thats controlled by the [i]
-// /// if statement saying if waldo hasn't been seen in certain time (15 seconds) he has to be picke
