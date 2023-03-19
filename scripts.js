@@ -17,6 +17,7 @@ let peepArray = [];
 
 // constructor to make peeps and it adds the peep to the peep array
 class Peep {
+  // this.image
   constructor(x, y, width, height, color, speed, direction) {
     this.x = x;
     this.y = y;
@@ -27,6 +28,7 @@ class Peep {
     this.direction = direction;
     peepArray.push(this);
   }
+  // add image to render
   render() {
     ctx.fillStyle = this.color;
     ctx.fillRect(
@@ -46,18 +48,20 @@ for (let i =0; i < 50; i++) {
     new Peep(0, 0, 0, 0, "#F88379", 5, "left");
 }
 
-
+// put images in array peepImageArray
 
 console.log(peepArray); // worked
 
 // RANDOMIZE PEEP
 function randomizePeep(peep) {
-  peep.x = Math.random() < 0.5 ? 0 : 750;
-  peep.y = stage.height + 205 - Math.floor(Math.random() * 250);
+  //use code to pick random image from peepImageArray and set it
   peep.width = 50;
   peep.height = 50;
+  peep.x = Math.random() < 0.5 ? 0 - peep.width: 750;
+  peep.y = stage.height + 205 - Math.floor(Math.random() * 250);
   peep.speed = Math.floor(Math.random() * (30 - 5 + 1) + 5);
-  peep.direction = Math.random() < 0.5 ? "left" : "right";
+  //this stops the peek-a-boo
+  peep.direction = peep.x > 100 ? "left" : "right";
 }
 
 console.log(peepArray);
@@ -120,8 +124,7 @@ function gameLoop() {
         randomizePeep(peep);
       }
       // draw peeps
-      ctx.fillStyle = peep.color;
-      ctx.fillRect(peep.x, peep.y, peep.width, peep.height);
+      peep.render ()
     });
   }
 }
