@@ -3,55 +3,42 @@
 // Rendering is too slow
 // Images need to be flipped based on direction
 
-
 // DOM Selectors
 const startBtn = document.querySelector("#startBtn");
 const canvas = document.querySelector("#canvas");
-const ctx = canvas.getContext('2d', {willReadFrequently: true});
+const ctx = canvas.getContext("2d", { willReadFrequently: true });
 const timer = document.querySelector("#timer");
 const stage = {
   width: 800,
   height: 250,
-}
+};
+
+// // image object
+// const img = new Image();
+// img.src = "path/to/image.png";
+// img.onload = () => {
+//   // Once the image has loaded, render it on the canvas
+//   ctx.drawImage(img, 0, 0);
+// }
+
+
 
 // PRE-LOAD maybe we can pre-render
 // IMAGES
 // Array to hold peep images
-let peepImageArray = []
-
-// testing for one image to display on canvas
-// // Create image through javascript vs html
-// var img = new Image();
-// img.src = "assets/wilma.png";
-// // makes sure image loads before function is run
-// img.onload = function(){
-
-//   // draw the image onto the canvas
-//   ctx.drawImage(img, 0, 0, 75, 100);
-  
-//   // get the image data from the canvas
-//   var imageData = ctx.getImageData(0, 0, 75, 100);
-  
-//   // add the image data to the peepImageArray
-//   peepImageArray.push(imageData);
-// }
-// console.log (peepImageArray) // worked
-
-// IMAGE PEEP LOOP
-
+let peepImageArray = [];
 
 // for loop to create multiple images. Right now it is linked to 9 total images.
 for (let i = 1; i < 50; i++) {
   let img = new Image();
   img.src = `assets/peep${i}.png`;
-  img.data = '0, 0, 75, 100'
+  img.data = "0, 0, 75, 100";
   peepImageArray.push({
     src: img.src,
-    data: img.data}
-    )
-  }
-console.log(peepImageArray) //worked
-
+    data: img.data,
+  });
+}
+console.log(peepImageArray); //worked
 
 // CREATE PEEPS
 // peep array
@@ -68,26 +55,54 @@ class Peep {
     this.color = color;
     this.speed = speed;
     this.direction = direction;
-    this.src = src
-    this.data = data
+    this.src = src;
+    this.data = data;
     peepArray.push(this);
   }
   // add image to render - this is what is making my image
   render() {
     const img = new Image();
-    img.src = this.src
+    img.src = this.src;
     img.onload = () => {
-      ctx.drawImage(img, this.x, this.y, this.width, this.height);
+      ctx.save();
+      // translate the context to the peep's current x and y coordinates
+      ctx.translate(this.x, this.y);
+      // scale the context by -1 on the x axis if peep is moving left
+      if (this.direction === "left") {
+        ctx.scale(-1, 1);
+      }
+      ctx.drawImage(img, 0, 0, this.width, this.height);
       this.data = ctx.getImageData(0, 0, img.width, img.height);
-    }
+      ctx.restore();
+    };
   }
 }
 
-const waldo = new Peep(0, 0, 0, 0, "red", 5, "right", 'http://127.0.0.1:5500/assets/waldo3.jpeg', ("0, 0, 75, 100"));
+const waldo = new Peep(
+  0,
+  0,
+  0,
+  0,
+  "red",
+  5,
+  "right",
+  "http://127.0.0.1:5500/assets/waldo3.jpeg",
+  "0, 0, 75, 100"
+);
 
-for (let i =0; i < 5; i++) {
-  new Peep(0, 0, 0, 0, "#F88379", 5, "left", peepImageArray[i].src, peepImageArray[i].data) };
-
+for (let i = 0; i < 49; i++) {
+  new Peep(
+    0,
+    0,
+    0,
+    0,
+    "#F88379",
+    5,
+    "left",
+    peepImageArray[i].src,
+    peepImageArray[i].data
+  );
+}
 
 // put images in array peepImageArray
 
@@ -97,17 +112,15 @@ console.log(peepArray); // worked
 function randomizePeep(peep) {
   //use code to pick random image from peepImageArray and set it
   peep.width = 150;
-  peep.height = 200
-  peep.x = Math.random() < 0.5 ? 0 - peep.width: 750;
-  peep.y = stage.height + 205 - Math.floor(Math.random() * 250);
-  peep.speed = Math.floor(Math.random() * (30 - 5 + 1) + 5);
+  peep.height = 200;
+  peep.x = Math.random() < 0.5 ? 0 - peep.width : canvas.width + peep.width;
+  peep.y = Math.floor(Math.random() * (canvas.height - peep.height));
+  peep.speed = Math.floor(Math.random() * (15 - 5 + 1) + 5);
   //this stops the peek-a-boo
   peep.direction = peep.x > 100 ? "left" : "right";
-  peep.src = peep.src
+  peep.src = peep.src;
   peep.data = peep.data;
-  console.log(peep)
 }
-
 
 // GAME MECHANICS
 
@@ -121,7 +134,7 @@ timer.innerText = `:${timeSecond}`;
 
 let timeInterval;
 
-startBtn.addEventListener("click", function() {
+startBtn.addEventListener("click", function () {
   timeInterval = setInterval(() => {
     timeSecond--;
     timer.innerText = `:${timeSecond}`;
@@ -133,7 +146,7 @@ startBtn.addEventListener("click", function() {
       ctx.font = "30px Arial";
       ctx.fillStyle = "black";
       ctx.textAlign = "center";
-      ctx.fillText("Waldo Escaped", canvas.width/2, canvas.height/2);
+      ctx.fillText("Waldo Escaped", canvas.width / 2, canvas.height / 2);
     }
   }, 1000);
 });
@@ -155,7 +168,7 @@ function gameLoop() {
     // this is for the movement of the boxes
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // making peeps appear
-    console.log(peepArray)
+
     peepArray.forEach((peep) => {
       // moving the peep left or right
       if (peep.direction === "left") {
@@ -164,11 +177,11 @@ function gameLoop() {
         peep.x += peep.speed;
       }
       // staying in canvas
-      if (peep.x < -peep.width || peep.x > canvas.width) {
+      if (peep.x < -peep.width || peep.x > (canvas.width + peep.width) || peep.y > canvas.height) {
         randomizePeep(peep);
       }
       // draw peep
-      peep.render ()
+      peep.render();
     });
   }
 }
@@ -190,7 +203,7 @@ canvas.addEventListener("click", (e) => {
     ctx.font = "30px Arial";
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
-    ctx.fillText("Caught Waldo", canvas.width/2, canvas.height/2);
+    ctx.fillText("Caught Waldo", canvas.width / 2, canvas.height / 2);
   }
 });
 
@@ -203,5 +216,6 @@ function gameEnd() {
   gameOver = true;
   startBtn.disabled = false;
   peepArray.forEach((peep) => {
-    randomizePeep(peep)
-})}
+    randomizePeep(peep);
+  });
+}
