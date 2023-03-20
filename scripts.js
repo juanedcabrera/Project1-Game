@@ -70,10 +70,10 @@ class Peep {
   }
   // add image to render - this is what is making my image
   render() {
-    console.log("hi")
     const img = new Image();
+    img.src = this.src
     img.onload = () => {
-      ctx.drawImage(img, 0, 0);
+      ctx.drawImage(img, this.x, this.y, this.width, this.height);
       this.data = ctx.getImageData(0, 0, img.width, img.height);
     }
   }
@@ -137,7 +137,7 @@ startBtn.addEventListener("click", function() {
 
 // START GAME
 function startGame() {
-  gameLoopInterval = setInterval(gameLoop, 2000);
+  gameLoopInterval = setInterval(gameLoop, 60);
   startBtn.disabled = true;
   timeInterval;
   gameOver = false;
@@ -164,9 +164,8 @@ function gameLoop() {
       if (peep.x < -peep.width || peep.x > canvas.width) {
         randomizePeep(peep);
       }
-      // draw peeps
-      console.log(peep)
-      peep.render()
+      // draw peep
+      peep.render ()
     });
   }
 }
