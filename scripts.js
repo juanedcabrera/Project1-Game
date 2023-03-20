@@ -37,7 +37,7 @@ let peepImageArray = []
 
 
 // for loop to create multiple images. Right now it is linked to 9 total images.
-for (let i = 1; i < 10; i++) {
+for (let i = 1; i < 50; i++) {
   let img = new Image();
   img.src = `assets/peep${i}.png`;
   img.data = '0, 0, 75, 100'
@@ -81,7 +81,7 @@ class Peep {
 
 const waldo = new Peep(0, 0, 0, 0, "red", 5, "right", 'Waldo.png', ("0, 0, 75, 100"));
 
-for (let i =0; i < 5; i++) {
+for (let i =0; i < 30; i++) {
   new Peep(0, 0, 0, 0, "#F88379", 5, "left", peepImageArray[i].src, peepImageArray[i].data) };
 
 
