@@ -1,6 +1,8 @@
 // TO-DO
-// Add image to boxes
-// Make images move in a wave like form
+// Waldo is not showing up as an image
+// Rendering is too slow
+// Images need to be flipped based on direction
+
 
 // DOM Selectors
 const startBtn = document.querySelector("#startBtn");
@@ -11,6 +13,9 @@ const stage = {
   width: 800,
   height: 250,
 }
+
+// PRE-LOAD maybe we can pre-render
+
 // IMAGES
 // Array to hold peep images
 let peepImageArray = []
@@ -92,8 +97,8 @@ console.log(peepArray); // worked
 // RANDOMIZE PEEP
 function randomizePeep(peep) {
   //use code to pick random image from peepImageArray and set it
-  peep.width = 50;
-  peep.height = 50;
+  peep.width = 150;
+  peep.height = 200
   peep.x = Math.random() < 0.5 ? 0 - peep.width: 750;
   peep.y = stage.height + 205 - Math.floor(Math.random() * 250);
   peep.speed = Math.floor(Math.random() * (30 - 5 + 1) + 5);
