@@ -3,42 +3,55 @@
 // Rendering is too slow
 // Images need to be flipped based on direction
 
+//REFACTOR
 
+
+const state = {
 // DOM Selectors
-const startBtn = document.querySelector("#startBtn");
-const canvas = document.querySelector("#canvas");
-const ctx = canvas.getContext('2d', {willReadFrequently: true});
-const timer = document.querySelector("#timer");
-const stage = {
+selector: { 
+  startBtn: document.querySelector("#startBtn"),
+  canvas: document.querySelector("#canvas"),
+  ctx: canvas.getContext('2d', {willReadFrequently: true}),
+  timer: document.querySelector("#timer"),
+  stage: {
   width: 800,
   height: 250,
 }
+}
+}
 
-// PRE-LOAD maybe we can pre-render
+// IMAGES
+function buildImageUrls (number) {
+  const peepImageArray = []
+
+// for loop to create multiple images. Right now it is linked to 9 total images.
+for (let i = 1; i < number; i++) {
+  peepImageArray.push(`assets/peep${i}.png`);
+}
+
+}
+
+function createPeeps
+
+function createRandomPeeps
+
+function initializeGame
+
+function update
+
+function render
+
+function startGameLoop
+
+
+
+
+
+
+
 // IMAGES
 // Array to hold peep images
 let peepImageArray = []
-
-// testing for one image to display on canvas
-// // Create image through javascript vs html
-// var img = new Image();
-// img.src = "assets/wilma.png";
-// // makes sure image loads before function is run
-// img.onload = function(){
-
-//   // draw the image onto the canvas
-//   ctx.drawImage(img, 0, 0, 75, 100);
-  
-//   // get the image data from the canvas
-//   var imageData = ctx.getImageData(0, 0, 75, 100);
-  
-//   // add the image data to the peepImageArray
-//   peepImageArray.push(imageData);
-// }
-// console.log (peepImageArray) // worked
-
-// IMAGE PEEP LOOP
-
 
 // for loop to create multiple images. Right now it is linked to 9 total images.
 for (let i = 1; i < 50; i++) {
@@ -85,7 +98,7 @@ class Peep {
 
 const waldo = new Peep(0, 0, 0, 0, "red", 5, "right", 'http://127.0.0.1:5500/assets/waldo3.jpeg', ("0, 0, 75, 100"));
 
-for (let i =0; i < 5; i++) {
+for (let i =0; i < 45; i++) {
   new Peep(0, 0, 0, 0, "#F88379", 5, "left", peepImageArray[i].src, peepImageArray[i].data) };
 
 
@@ -100,7 +113,7 @@ function randomizePeep(peep) {
   peep.height = 200
   peep.x = Math.random() < 0.5 ? 0 - peep.width: 750;
   peep.y = stage.height + 205 - Math.floor(Math.random() * 250);
-  peep.speed = Math.floor(Math.random() * (30 - 5 + 1) + 5);
+  peep.speed = Math.floor(Math.random() * (10 - 5 + 1) + 5);
   //this stops the peek-a-boo
   peep.direction = peep.x > 100 ? "left" : "right";
   peep.src = peep.src
@@ -205,3 +218,5 @@ function gameEnd() {
   peepArray.forEach((peep) => {
     randomizePeep(peep)
 })}
+
+
