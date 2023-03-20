@@ -15,7 +15,6 @@ const stage = {
 }
 
 // PRE-LOAD maybe we can pre-render
-
 // IMAGES
 // Array to hold peep images
 let peepImageArray = []
@@ -84,9 +83,9 @@ class Peep {
   }
 }
 
-const waldo = new Peep(0, 0, 0, 0, "red", 5, "right", 'Waldo.png', ("0, 0, 75, 100"));
+const waldo = new Peep(0, 0, 0, 0, "red", 5, "right", 'http://127.0.0.1:5500/assets/waldo3.jpeg', ("0, 0, 75, 100"));
 
-for (let i =0; i < 30; i++) {
+for (let i =0; i < 5; i++) {
   new Peep(0, 0, 0, 0, "#F88379", 5, "left", peepImageArray[i].src, peepImageArray[i].data) };
 
 
