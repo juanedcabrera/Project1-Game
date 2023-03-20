@@ -91,7 +91,6 @@ console.log(peepArray); // worked
 
 // RANDOMIZE PEEP
 function randomizePeep(peep) {
-  let randomPeep = peepArray[Math.floor(Math.random() * peepArray.length)];
   //use code to pick random image from peepImageArray and set it
   peep.width = 50;
   peep.height = 50;
@@ -100,9 +99,9 @@ function randomizePeep(peep) {
   peep.speed = Math.floor(Math.random() * (30 - 5 + 1) + 5);
   //this stops the peek-a-boo
   peep.direction = peep.x > 100 ? "left" : "right";
-  peep.src = randomPeep.src
-  peep.data = randomPeep.data;
-  console.log(randomPeep)
+  peep.src = peep.src
+  peep.data = peep.data;
+  console.log(peep)
 }
 
 
