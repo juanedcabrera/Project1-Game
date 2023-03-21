@@ -3,6 +3,8 @@
 // Rendering is too slow
 // Images need to be flipped based on direction
 
+// Learnings: render should just draw image - nothing
+
 // DOM Selectors
 const startBtn = document.querySelector("#startBtn");
 const canvas = document.querySelector("#canvas");
@@ -13,17 +15,6 @@ const stage = {
   height: 250,
 };
 
-// // image object
-// const img = new Image();
-// img.src = "path/to/image.png";
-// img.onload = () => {
-//   // Once the image has loaded, render it on the canvas
-//   ctx.drawImage(img, 0, 0);
-// }
-
-
-
-// PRE-LOAD maybe we can pre-render
 // IMAGES
 // Array to hold peep images
 let peepImageArray = [];
@@ -47,60 +38,53 @@ let peepArray = [];
 // constructor to make peeps and it adds the peep to the peep array
 class Peep {
   // this.image
-  constructor(x, y, width, height, color, speed, direction, src, data) {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-    this.color = color;
+  constructor(speed, direction, src, img) {
+    this.x = 0
+    this.y = 0
+    this.width = 0
+    this.height = 0
     this.speed = speed;
     this.direction = direction;
     this.src = src;
-    this.data = data;
+    this.img = img;
     peepArray.push(this);
   }
   // add image to render - this is what is making my image
   render() {
-    const img = new Image();
-    img.src = this.src;
-    img.onload = () => {
-      ctx.save();
-      // translate the context to the peep's current x and y coordinates
-      ctx.translate(this.x, this.y);
-      // scale the context by -1 on the x axis if peep is moving left
-      if (this.direction === "left") {
-        ctx.scale(-1, 1);
-      }
-      ctx.drawImage(img, 0, 0, this.width, this.height);
-      this.data = ctx.getImageData(0, 0, img.width, img.height);
-      ctx.restore();
-    };
+    // const img = new Image();
+    // img.src = this.src;
+    // img.onload = () => {
+    //   ctx.save();
+    //   // translate the context to the peep's current x and y coordinates
+    //   ctx.translate(this.x, this.y);
+    //   // scale the context by -1 on the x axis if peep is moving left
+    //   }
+      
+    //   this.data = ctx.getImageData(0, 0, img.width, img.height);
+    //   ctx.restore();
+    // }
+    
+    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 }
+const waldoImage = new Image()
+waldoImage.src = "http://127.0.0.1:5500/assets/waldo3.jpeg"
 
 const waldo = new Peep(
-  0,
-  0,
-  0,
-  0,
-  "red",
   5,
   "right",
   "http://127.0.0.1:5500/assets/waldo3.jpeg",
-  "0, 0, 75, 100"
+  waldoImage,
 );
 
 for (let i = 0; i < 49; i++) {
+  const img = new Image();
+  img.src = peepImageArray[i].src
   new Peep(
-    0,
-    0,
-    0,
-    0,
-    "#F88379",
     5,
     "left",
     peepImageArray[i].src,
-    peepImageArray[i].data
+    img,
   );
 }
 
@@ -114,7 +98,7 @@ function randomizePeep(peep) {
   peep.width = 150;
   peep.height = 200;
   peep.x = Math.random() < 0.5 ? 0 - peep.width : canvas.width + peep.width;
-  peep.y = Math.floor(Math.random() * (canvas.height - peep.height));
+  peep.y = Math.floor(Math.random() * (canvas.height - peep.height) + 1);
   peep.speed = Math.floor(Math.random() * (15 - 5 + 1) + 5);
   //this stops the peek-a-boo
   peep.direction = peep.x > 100 ? "left" : "right";
@@ -161,6 +145,27 @@ function startGame() {
 
 startBtn.addEventListener("click", startGame);
 
+
+//MOVE PEEPS
+
+function movePeeps(peepArray) {
+  peepArray.forEach((peep) => {
+    // moving the peep left or right
+    if (peep.direction === "left") {
+      peep.x -= peep.speed
+    } else {
+      peep.x += peep.speed;
+
+    }
+    // staying in canvas
+    if (peep.x < -peep.width || peep.x > (canvas.width + peep.width) || peep.y > canvas.height) {
+      randomizePeep(peep);
+    }
+    // draw peep
+    peep.render();
+  });
+}
+
 // GAME LOOP
 
 function gameLoop() {
@@ -168,21 +173,7 @@ function gameLoop() {
     // this is for the movement of the boxes
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // making peeps appear
-
-    peepArray.forEach((peep) => {
-      // moving the peep left or right
-      if (peep.direction === "left") {
-        peep.x -= peep.speed;
-      } else {
-        peep.x += peep.speed;
-      }
-      // staying in canvas
-      if (peep.x < -peep.width || peep.x > (canvas.width + peep.width) || peep.y > canvas.height) {
-        randomizePeep(peep);
-      }
-      // draw peep
-      peep.render();
-    });
+    movePeeps(peepArray);
   }
 }
 
