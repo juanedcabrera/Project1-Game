@@ -18,13 +18,11 @@ const stage = {
 let peepImageArray = [];
 
 // for loop to create multiple images. Right now it is linked to 9 total images.
-for (let i = 1; i < 50; i++) {
+for (let i = 1; i < 55; i++) {
   let img = new Image();
   img.src = `assets/peep${i}.png`;
-  img.data = "0, 0, 75, 100";
   peepImageArray.push({
     src: img.src,
-    data: img.data,
   });
 }
 console.log(peepImageArray); //worked
@@ -37,10 +35,10 @@ let peepArray = [];
 class Peep {
   // this.image
   constructor(speed, direction, src, img) {
-    this.x = 0
-    this.y = 0
-    this.width = 0
-    this.height = 0
+    this.x = 0;
+    this.y = 0;
+    this.width = 0;
+    this.height = 0;
     this.speed = speed;
     this.direction = direction;
     this.src = src;
@@ -61,25 +59,20 @@ class Peep {
     ctx.restore();
   }
 }
-const waldoImage = new Image()
-waldoImage.src = "http://127.0.0.1:5500/assets/waldo3.jpeg"
+const waldoImage = new Image();
+waldoImage.src = "http://127.0.0.1:5500/assets/waldo3.jpeg";
 
 const waldo = new Peep(
   5,
   "right",
   "http://127.0.0.1:5500/assets/waldo3.jpeg",
-  waldoImage,
+  waldoImage
 );
 
-for (let i = 0; i < 49; i++) {
+for (let i = 0; i < 54; i++) {
   const img = new Image();
-  img.src = peepImageArray[i].src
-  new Peep(
-    5,
-    "left",
-    peepImageArray[i].src,
-    img,
-  );
+  img.src = peepImageArray[i].src;
+  new Peep(5, "left", peepImageArray[i].src, img);
 }
 
 // put images in array peepImageArray
@@ -97,7 +90,6 @@ function randomizePeep(peep) {
   //this stops the peek-a-boo
   peep.direction = peep.x > 100 ? "left" : "right";
   peep.src = peep.src;
-  peep.data = peep.data;
 }
 
 // GAME MECHANICS
@@ -139,20 +131,22 @@ function startGame() {
 
 startBtn.addEventListener("click", startGame);
 
-
 //MOVE PEEPS
 
 function movePeeps(peepArray) {
   peepArray.forEach((peep) => {
     // moving the peep left or right
     if (peep.direction === "left") {
-      peep.x -= peep.speed
+      peep.x -= peep.speed;
     } else {
       peep.x += peep.speed;
-
     }
     // staying in canvas
-    if (peep.x < -peep.width || peep.x > (canvas.width + peep.width) || peep.y > canvas.height) {
+    if (
+      peep.x < -peep.width ||
+      peep.x > canvas.width + peep.width ||
+      peep.y > canvas.height
+    ) {
       randomizePeep(peep);
     }
     // draw peep
