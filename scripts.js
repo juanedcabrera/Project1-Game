@@ -1,6 +1,4 @@
 // TO-DO
-// Waldo is not showing up as an image
-// Rendering is too slow
 // Images need to be flipped based on direction
 
 // Learnings: render should just draw image - nothing
@@ -51,20 +49,16 @@ class Peep {
   }
   // add image to render - this is what is making my image
   render() {
-    // const img = new Image();
-    // img.src = this.src;
-    // img.onload = () => {
-    //   ctx.save();
-    //   // translate the context to the peep's current x and y coordinates
-    //   ctx.translate(this.x, this.y);
-    //   // scale the context by -1 on the x axis if peep is moving left
-    //   }
-      
-    //   this.data = ctx.getImageData(0, 0, img.width, img.height);
-    //   ctx.restore();
-    // }
-    
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    ctx.save();
+    // translate the ctx to the peep's current x and y coordinates
+    ctx.translate(this.x, this.y);
+    // scale the context by -1 on the x axis if peep is moving left
+    if (this.direction === "left") {
+      ctx.scale(-1, 1);
+    }
+    // draw the image
+    ctx.drawImage(this.img, 0, 0, this.width, this.height);
+    ctx.restore();
   }
 }
 const waldoImage = new Image()
