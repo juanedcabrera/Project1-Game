@@ -35,8 +35,21 @@ document.addEventListener("blur", redraw, true);
 redraw();
 
 function redraw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawButton(canvStartBtn, 325, 225);
+}
+
+
+function redrawTimer() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  redraw()
+  screen ("Waldo Escaped")
+  
+}
+
+function redrawCatch() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  redraw()
+  screen ("Waldo Caught")
 }
 
 function drawButton(el, x, y) {
@@ -64,6 +77,7 @@ canvas.addEventListener ("click", (e) => {
     e.offsetY <= canvStartBtn.y + canvStartBtn.height
   ) {
     startGame ()
+    startCountdown()
   }
 })
 
@@ -159,7 +173,7 @@ let timeInterval;
 
 timer.innerText = `:${timeSecond}`;
 
-startBtn.addEventListener("click", function () {
+function startCountdown() {
   timeInterval = setInterval(() => {
     timeSecond--;
     timer.innerText = `:${timeSecond}`;
@@ -168,10 +182,10 @@ startBtn.addEventListener("click", function () {
       gameEnd();
       timeSecond = 60;
       timer.innerText = `:${timeSecond}`;
-    screen ("Waldo Escaped")
+      redrawTimer()
     }
   }, 1000);
-});
+}
 
 // START GAME
 function startGame() {
@@ -228,10 +242,7 @@ canvas.addEventListener("click", (e) => {
     e.offsetY <= waldo.y + waldo.height
   ) {
     gameEnd();
-    clearInterval(timeInterval);
-    timeSecond = 60;
-    timer.innerText = `:${timeSecond}`;
-    screen("Waldo Caught")
+    redrawCatch()
   }
 });
 
@@ -240,6 +251,7 @@ function gameEnd() {
   clearInterval(timeInterval);
   clearInterval(gameLoopInterval);
   timeSecond = 60;
+  timer.innerText = `:${timeSecond}`;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   gameOver = true;
   startBtn.disabled = false;
@@ -250,11 +262,10 @@ function gameEnd() {
 
 // SCREEN MESSAGE
 function screen(message) {
-  ctx.clearRect(0,0,canvas.width,canvas.height)
 
   ctx.font = "30px Arial"
   ctx.textAlign = "center"
   ctx.fillStyle = "black"
 
-ctx.fillText (message, canvas.width / 2, canvas.height / 2)
+ctx.fillText (message, canvas.width / 2, canvas.height / 2.5)
 }
