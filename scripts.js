@@ -24,6 +24,16 @@ const timer = document.querySelector("#timer");
 
 
 // BUTTON
+const canvStartBtn = document.createElement("button");
+
+document.addEventListener("focus", redraw, true);
+document.addEventListener("blur", redraw, true);
+redraw();
+
+function redraw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawButton(canvStartBtn, 325, 225);
+}
 
 function drawButton(el, x, y) {
   const active = document.activeElement === el;
@@ -35,23 +45,23 @@ function drawButton(el, x, y) {
   ctx.fillRect(x, y, width, height);
 
   // Button text
-  ctx.font = "15px sans-serif";
+  ctx.font = "15px Arial";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillStyle = active ? "blue" : "black";
-  ctx.fillText(el.textContent, x + width / 2, y + height / 2);
+  ctx.fillText("Start", x + width / 2, y + height / 2);
 
   // Define clickable area
   ctx.beginPath();
   ctx.rect(x, y, width, height);
-
-  // Draw focus ring, if appropriate
-  ctx.drawFocusIfNeeded(el);
 }
 
-drawButton(startBtn, 325, 225)
-
-
+canvas.addEventListener ("click", (e) => {
+ const x = e.clientX && e.clientX + 150;
+ const y = e.clientY && e.clientY + 40;
+ console.log(e)
+ startGame()
+})
 
 // IMAGES
 // Array to hold peep images
@@ -167,7 +177,7 @@ function startGame() {
   gameOver = false;
 }
 
-startBtn.addEventListener("click", startGame);
+// startBtn.addEventListener("click", startGame);
 
 //MOVE PEEPS
 
