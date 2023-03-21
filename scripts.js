@@ -1,17 +1,26 @@
 // TO-DO
-// Images need to be flipped based on direction
+// Waldo is random and not set
+// 
 
-// Learnings: render should just draw image - nothing
+
+// DOM SELECTORS
+// IMAGES
+// CREATE PEEPS
+// RANDOMIZE PEEPS
+// GAME MECHANICS DEFINITIONS
+// TIMER
+// MOVE PEEPS
+// GAME LOOP
+// WALDO
+// ENDGAME
+// SCREEN MESSAGE
+
 
 // DOM Selectors
 const startBtn = document.querySelector("#startBtn");
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d", { willReadFrequently: true });
 const timer = document.querySelector("#timer");
-const stage = {
-  width: 800,
-  height: 250,
-};
 
 // IMAGES
 // Array to hold peep images
@@ -46,6 +55,7 @@ class Peep {
     peepArray.push(this);
   }
   // add image to render - this is what is making my image
+  // inspired by https://jsfiddle.net/sw4w8qnu/ for the ctx save, translate, restore
   render() {
     ctx.save();
     // translate the ctx to the peep's current x and y coordinates
@@ -69,7 +79,7 @@ const waldo = new Peep(
   waldoImage
 );
 
-for (let i = 0; i < 54; i++) {
+for (let i = 0; i < 5; i++) {
   const img = new Image();
   img.src = peepImageArray[i].src;
   new Peep(5, "left", peepImageArray[i].src, img);
@@ -97,12 +107,12 @@ function randomizePeep(peep) {
 let gameLoopInterval;
 let timeSecond = 60;
 let gameOver = true;
+let timeInterval;
+
 
 // TIMER
 
 timer.innerText = `:${timeSecond}`;
-
-let timeInterval;
 
 startBtn.addEventListener("click", function () {
   timeInterval = setInterval(() => {
@@ -113,10 +123,7 @@ startBtn.addEventListener("click", function () {
       gameEnd();
       timeSecond = 60;
       timer.innerText = `:${timeSecond}`;
-      ctx.font = "30px Arial";
-      ctx.fillStyle = "black";
-      ctx.textAlign = "center";
-      ctx.fillText("Waldo Escaped", canvas.width / 2, canvas.height / 2);
+    screen ("Waldo Escaped")
     }
   }, 1000);
 });
@@ -179,10 +186,7 @@ canvas.addEventListener("click", (e) => {
     clearInterval(timeInterval);
     timeSecond = 60;
     timer.innerText = `:${timeSecond}`;
-    ctx.font = "30px Arial";
-    ctx.fillStyle = "black";
-    ctx.textAlign = "center";
-    ctx.fillText("Caught Waldo", canvas.width / 2, canvas.height / 2);
+    screen("Waldo Caught")
   }
 });
 
@@ -197,4 +201,15 @@ function gameEnd() {
   peepArray.forEach((peep) => {
     randomizePeep(peep);
   });
+}
+
+// SCREEN MESSAGE
+function screen(message) {
+  ctx.clearRect(0,0,canvas.width,canvas.height)
+
+  ctx.font = "30px Arial"
+  ctx.textAlign = "center"
+  ctx.fillStyle = "black"
+
+ctx.fillText (message, canvas.width / 2, canvas.height / 2)
 }
