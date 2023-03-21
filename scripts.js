@@ -19,12 +19,16 @@
 // DOM Selectors
 const startBtn = document.querySelector("#startBtn");
 const canvas = document.querySelector("#canvas");
-const ctx = canvas.getContext("2d", { willReadFrequently: true });
+const ctx = canvas.getContext("2d");
 const timer = document.querySelector("#timer");
 
 
 // BUTTON
 const canvStartBtn = document.createElement("button");
+canvStartBtn.x = 325;
+canvStartBtn.y = 225;
+canvStartBtn.width = 150;
+canvStartBtn.height = 40;
 
 document.addEventListener("focus", redraw, true);
 document.addEventListener("blur", redraw, true);
@@ -50,17 +54,17 @@ function drawButton(el, x, y) {
   ctx.textBaseline = "middle";
   ctx.fillStyle = active ? "blue" : "black";
   ctx.fillText("Start", x + width / 2, y + height / 2);
-
-  // Define clickable area
-  ctx.beginPath();
-  ctx.rect(x, y, width, height);
 }
 
 canvas.addEventListener ("click", (e) => {
- const x = e.clientX && e.clientX + 150;
- const y = e.clientY && e.clientY + 40;
- console.log(e)
- startGame()
+  if (
+    e.offsetX >= canvStartBtn.x &&
+    e.offsetX <= canvStartBtn.x + canvStartBtn.width &&
+    e.offsetY >= canvStartBtn.y &&
+    e.offsetY <= canvStartBtn.y + canvStartBtn.height
+  ) {
+    startGame ()
+  }
 })
 
 // IMAGES
