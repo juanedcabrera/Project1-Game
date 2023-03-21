@@ -22,6 +22,37 @@ const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d", { willReadFrequently: true });
 const timer = document.querySelector("#timer");
 
+
+// BUTTON
+
+function drawButton(el, x, y) {
+  const active = document.activeElement === el;
+  const width = 150;
+  const height = 40;
+
+  // Button background
+  ctx.fillStyle = active ? "pink" : "lightgray";
+  ctx.fillRect(x, y, width, height);
+
+  // Button text
+  ctx.font = "15px sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = active ? "blue" : "black";
+  ctx.fillText(el.textContent, x + width / 2, y + height / 2);
+
+  // Define clickable area
+  ctx.beginPath();
+  ctx.rect(x, y, width, height);
+
+  // Draw focus ring, if appropriate
+  ctx.drawFocusIfNeeded(el);
+}
+
+drawButton(startBtn, 325, 225)
+
+
+
 // IMAGES
 // Array to hold peep images
 let peepImageArray = [];
