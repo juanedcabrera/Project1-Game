@@ -18,7 +18,6 @@
 // DOM Selectors
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
-const timer = document.querySelector("#timer");
 
 // START BUTTON
 const canvStartBtn = document.createElement("button");
@@ -29,20 +28,9 @@ canvStartBtn.height = 40;
 
 redraw();
 
+
 function redraw() {
   drawButton(canvStartBtn, 325, 225);
-}
-
-function redrawTimer() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  redraw();
-  screen("Waldo Escaped");
-}
-
-function redrawCatch() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  redraw();
-  screen("Waldo Caught");
 }
 
 function drawButton(el, x, y) {
@@ -75,6 +63,7 @@ function canvasClickHandler(e) {
   }
 }
 // IMAGES
+
 // Array to hold peep images
 let peepImageArray = [];
 
@@ -86,7 +75,6 @@ for (let i = 1; i < 55; i++) {
     src: img.src,
   });
 }
-console.log(peepImageArray); //worked
 
 // CREATE PEEPS
 // peep array
@@ -139,10 +127,6 @@ for (let i = 0; i < 20; i++) {
   new Peep(5, "left", peepImageArray[i].src, img);
 }
 
-// put images in array peepImageArray
-
-console.log(peepArray); // worked
-
 // RANDOMIZE PEEP
 function randomizePeep(peep) {
   //use code to pick random image from peepImageArray and set it
@@ -165,17 +149,31 @@ let timeInterval;
 
 // TIMER
 
-timer.innerText = `:${timeSecond}`;
+
+const timerX = canvas.width/2
+
+function drawTimer() {
+  ctx.font = "30px Arial"
+  ctx.fillStyle = "black"
+  ctx.textAlign = "start"
+  ctx.fillText(`Timer :${timeSecond}`, timerX, 50)
+}
+
+function redrawTimer() {
+  ctx.clearRect (0,0,canvas.width,canvas.height)
+  redraw()
+  drawTimer()
+  screen("Waldo Escaped")
+}
 
 function startCountdown() {
+  timerX
   timeInterval = setInterval(() => {
     timeSecond--;
-    timer.innerText = `:${timeSecond}`;
     if (timeSecond <= 0) {
       clearInterval(timeInterval);
       gameEnd();
       timeSecond = 60;
-      timer.innerText = `:${timeSecond}`;
       redrawTimer();
     }
   }, 1000);
@@ -217,6 +215,7 @@ function gameLoop() {
   if (!gameOver) {
     // this is for the movement of the boxes
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawTimer()
     // making peeps appear
     movePeeps(peepArray);
   }
@@ -237,12 +236,18 @@ canvas.addEventListener("click", (e) => {
   }
 });
 
+function redrawCatch() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  redraw();
+  screen("Waldo Caught");
+}
+
 // END GAME
 function gameEnd() {
   clearInterval(timeInterval);
   clearInterval(gameLoopInterval);
   timeSecond = 60;
-  timer.innerText = `:${timeSecond}`;
+  // timer.innerText = `:${timeSecond}`;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   gameOver = true;
   peepArray.forEach((peep) => {
@@ -257,3 +262,4 @@ function screen(message) {
   ctx.fillStyle = "black";
   ctx.fillText(message, canvas.width / 2, canvas.height / 2.5);
 }
+
