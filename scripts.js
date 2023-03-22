@@ -1,9 +1,9 @@
 // TO-DO
 // Waldo is random and not set
-// 
-
+//
 
 // DOM SELECTORS
+// START BUTTON
 // IMAGES
 // CREATE PEEPS
 // RANDOMIZE PEEPS
@@ -15,47 +15,42 @@
 // ENDGAME
 // SCREEN MESSAGE
 
-
 // DOM Selectors
-const startBtn = document.querySelector("#startBtn");
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 const timer = document.querySelector("#timer");
 
-
-// BUTTON
+// START BUTTON
 const canvStartBtn = document.createElement("button");
 canvStartBtn.x = 325;
 canvStartBtn.y = 225;
 canvStartBtn.width = 150;
 canvStartBtn.height = 40;
 
-document.addEventListener("focus", redraw, true);
-document.addEventListener("blur", redraw, true);
+
 redraw();
 
 function redraw() {
   drawButton(canvStartBtn, 325, 225);
 }
 
-
 function redrawTimer() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  redraw()
-  screen ("Waldo Escaped")
-  
+  redraw();
+  screen("Waldo Escaped");
 }
 
 function redrawCatch() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  redraw()
-  screen ("Waldo Caught")
+  redraw();
+  screen("Waldo Caught");
 }
 
 function drawButton(el, x, y) {
   const active = document.activeElement === el;
   const width = 150;
   const height = 40;
+  canvas.addEventListener('click', canvasClickHandler, { once:true});
 
   // Button background
   ctx.fillStyle = active ? "pink" : "lightgray";
@@ -69,18 +64,17 @@ function drawButton(el, x, y) {
   ctx.fillText("Start", x + width / 2, y + height / 2);
 }
 
-canvas.addEventListener ("click", (e) => {
+function canvasClickHandler(e) {
   if (
     e.offsetX >= canvStartBtn.x &&
     e.offsetX <= canvStartBtn.x + canvStartBtn.width &&
     e.offsetY >= canvStartBtn.y &&
     e.offsetY <= canvStartBtn.y + canvStartBtn.height
   ) {
-    startGame ()
+    startGame();
     startCountdown()
   }
-})
-
+}
 // IMAGES
 // Array to hold peep images
 let peepImageArray = [];
@@ -168,7 +162,6 @@ let timeSecond = 60;
 let gameOver = true;
 let timeInterval;
 
-
 // TIMER
 
 timer.innerText = `:${timeSecond}`;
@@ -182,7 +175,7 @@ function startCountdown() {
       gameEnd();
       timeSecond = 60;
       timer.innerText = `:${timeSecond}`;
-      redrawTimer()
+      redrawTimer();
     }
   }, 1000);
 }
@@ -190,12 +183,9 @@ function startCountdown() {
 // START GAME
 function startGame() {
   gameLoopInterval = setInterval(gameLoop, 60);
-  startBtn.disabled = true;
   timeInterval;
   gameOver = false;
 }
-
-// startBtn.addEventListener("click", startGame);
 
 //MOVE PEEPS
 
@@ -242,7 +232,7 @@ canvas.addEventListener("click", (e) => {
     e.offsetY <= waldo.y + waldo.height
   ) {
     gameEnd();
-    redrawCatch()
+    redrawCatch();
   }
 });
 
@@ -254,7 +244,6 @@ function gameEnd() {
   timer.innerText = `:${timeSecond}`;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   gameOver = true;
-  startBtn.disabled = false;
   peepArray.forEach((peep) => {
     randomizePeep(peep);
   });
@@ -262,10 +251,8 @@ function gameEnd() {
 
 // SCREEN MESSAGE
 function screen(message) {
-
-  ctx.font = "30px Arial"
-  ctx.textAlign = "center"
-  ctx.fillStyle = "black"
-
-ctx.fillText (message, canvas.width / 2, canvas.height / 2.5)
+  ctx.font = "30px Arial";
+  ctx.textAlign = "center";
+  ctx.fillStyle = "black";
+  ctx.fillText(message, canvas.width / 2, canvas.height / 2.5);
 }
