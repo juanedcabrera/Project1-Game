@@ -19,6 +19,12 @@
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 
+//SOUNDS
+
+let streetSound = new Audio('assets/sf-street-sound.mp3')
+let victorySound = new Audio('assets/victory.wav')
+let awwSound = new Audio('assets/aww.mp3')
+
 // START BUTTON
 const canvStartBtn = document.createElement("button");
 canvStartBtn.x = 325;
@@ -156,7 +162,7 @@ function drawTimer() {
   ctx.font = "30px Arial"
   ctx.fillStyle = "black"
   ctx.textAlign = "start"
-  ctx.fillText(`Timer :${timeSecond}`, timerX, 20, 200)
+  ctx.fillText(`Timer: ${timeSecond}`, timerX, 20, 200)
 }
 
 function redrawTimer() {
@@ -171,6 +177,7 @@ function startCountdown() {
   timeInterval = setInterval(() => {
     timeSecond--;
     if (timeSecond <= 0) {
+      awwSound.play()
       clearInterval(timeInterval);
       gameEnd();
       timeSecond = 60;
@@ -184,6 +191,7 @@ function startGame() {
   gameLoopInterval = setInterval(gameLoop, 60);
   timeInterval;
   gameOver = false;
+  streetSound.play()
 }
 
 //MOVE PEEPS
@@ -233,6 +241,7 @@ canvas.addEventListener("click", (e) => {
   ) {
     gameEnd();
     redrawCatch();
+    victorySound.play()
   }
 });
 
@@ -244,6 +253,7 @@ function redrawCatch() {
 
 // END GAME
 function gameEnd() {
+  streetSound.load()
   clearInterval(timeInterval);
   clearInterval(gameLoopInterval);
   timeSecond = 60;
