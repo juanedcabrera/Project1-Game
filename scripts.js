@@ -27,7 +27,6 @@ canvStartBtn.y = 225;
 canvStartBtn.width = 150;
 canvStartBtn.height = 40;
 
-
 redraw();
 
 function redraw() {
@@ -50,7 +49,7 @@ function drawButton(el, x, y) {
   const active = document.activeElement === el;
   const width = 150;
   const height = 40;
-  canvas.addEventListener('click', canvasClickHandler, { once:true});
+  canvas.addEventListener("click", canvasClickHandler, { once: true });
 
   // Button background
   ctx.fillStyle = active ? "pink" : "lightgray";
@@ -72,7 +71,7 @@ function canvasClickHandler(e) {
     e.offsetY <= canvStartBtn.y + canvStartBtn.height
   ) {
     startGame();
-    startCountdown()
+    startCountdown();
   }
 }
 // IMAGES
@@ -125,12 +124,12 @@ class Peep {
 }
 
 const waldoImage = new Image();
-waldoImage.src = "http://127.0.0.1:5500/assets/waldo3.jpeg";
+waldoImage.src = "assets/waldo3.jpeg";
 
 const waldo = new Peep(
   5,
   "right",
-  "http://127.0.0.1:5500/assets/waldo3.jpeg",
+  "assets/waldo3.jpeg",
   waldoImage
 );
 
