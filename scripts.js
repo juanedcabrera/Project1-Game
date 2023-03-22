@@ -25,7 +25,7 @@ canvStartBtn.x = 325;
 canvStartBtn.y = 225;
 canvStartBtn.width = 150;
 canvStartBtn.height = 40;
-
+screen("Rules: 60 seconds to find and click on Waldo", "30px Arial", "center", "black")
 redraw();
 
 
@@ -133,7 +133,7 @@ function randomizePeep(peep) {
   peep.width = 150;
   peep.height = 200;
   peep.x = Math.random() < 0.5 ? 0 - peep.width : canvas.width + peep.width;
-  peep.y = Math.floor(Math.random() * (canvas.height - peep.height) + 1);
+  peep.y = Math.floor(Math.random() * (canvas.height - peep.height) + 50);
   peep.speed = Math.floor(Math.random() * (15 - 5 + 1) + 5);
   //this stops the peek-a-boo
   peep.direction = peep.x > 100 ? "left" : "right";
@@ -150,20 +150,20 @@ let timeInterval;
 // TIMER
 
 
-const timerX = canvas.width/2
+const timerX = canvas.width/2.4
 
 function drawTimer() {
   ctx.font = "30px Arial"
   ctx.fillStyle = "black"
   ctx.textAlign = "start"
-  ctx.fillText(`Timer :${timeSecond}`, timerX, 50)
+  ctx.fillText(`Timer :${timeSecond}`, timerX, 20, 200)
 }
 
 function redrawTimer() {
   ctx.clearRect (0,0,canvas.width,canvas.height)
   redraw()
   drawTimer()
-  screen("Waldo Escaped")
+  screen("Waldo Escaped", "30px Arial", "center", "black")
 }
 
 function startCountdown() {
@@ -239,7 +239,7 @@ canvas.addEventListener("click", (e) => {
 function redrawCatch() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   redraw();
-  screen("Waldo Caught");
+  screen("Waldo Caught", "30px Arial", "center", "black");
 }
 
 // END GAME
@@ -256,10 +256,9 @@ function gameEnd() {
 }
 
 // SCREEN MESSAGE
-function screen(message) {
-  ctx.font = "30px Arial";
-  ctx.textAlign = "center";
-  ctx.fillStyle = "black";
+function screen (message, font, textAlign, fillStyle) {
+  ctx.font = font
+  ctx.textAlign = textAlign
+  ctx.fillStyle = fillStyle
   ctx.fillText(message, canvas.width / 2, canvas.height / 2.5);
 }
-
