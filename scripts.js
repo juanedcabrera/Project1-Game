@@ -111,17 +111,19 @@ class Peep {
   // inspired by https://jsfiddle.net/sw4w8qnu/ for the ctx save, translate, restore
   render() {
     ctx.save();
-    // translate the ctx to the peep's current x and y coordinates
+    // move the origin of the context to the peep's current x and y coordinates
     ctx.translate(this.x, this.y);
-    // scale the context by -1 on the x axis if peep is moving left
+    // flip the context horizontally if peep is moving left
     if (this.direction === "left") {
       ctx.scale(-1, 1);
+      ctx.translate(-this.width, 0);
     }
     // draw the image
     ctx.drawImage(this.img, 0, 0, this.width, this.height);
     ctx.restore();
   }
 }
+
 const waldoImage = new Image();
 waldoImage.src = "http://127.0.0.1:5500/assets/waldo3.jpeg";
 
@@ -132,7 +134,7 @@ const waldo = new Peep(
   waldoImage
 );
 
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 20; i++) {
   const img = new Image();
   img.src = peepImageArray[i].src;
   new Peep(5, "left", peepImageArray[i].src, img);
