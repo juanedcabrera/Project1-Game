@@ -33,27 +33,27 @@ let awwSound = new Audio("assets/aww.mp3");
 const buttons = {
   easyButton: {
     x: 50,
-    y: 225,
+    y: 330,
     w: 150,
     h: 40,
   },
   mediumButton: {
     x: 320,
-    y: 225,
+    y: 330,
     w: 150,
     h: 40,
   },
   hardButton: {
     x: 585,
-    y: 225,
+    y: 330,
     w: 150,
     h: 40,
   },
 };
 
-drawButton("EASY", 50, 225);
-drawButton("MEDIUM", 320, 225);
-drawButton("HARD", 585, 225);
+drawButton("EASY", 50, 330);
+drawButton("MEDIUM", 320, 330);
+drawButton("HARD", 585, 330);
 
 screen(
   "You have 60 seconds to find and click on Waldo",
@@ -63,9 +63,9 @@ screen(
 );
 
 function redraw() {
-  drawButton("EASY", 50, 225);
-  drawButton("MEDIUM", 325, 225);
-  drawButton("HARD", 575, 225);
+  drawButton("EASY", 50, 330);
+  drawButton("MEDIUM", 320, 330);
+  drawButton("HARD", 585, 330);
 }
 
 function drawButton(button, x, y) {
@@ -82,7 +82,7 @@ function drawButton(button, x, y) {
   ctx.font = "15px Arial";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillStyle = active ? "blue" : "black";
+  ctx.fillStyle = active ? "white" : "white";
   ctx.fillText(button, x + width / 2, y + height / 2);
 }
 
@@ -205,7 +205,7 @@ let timeInterval;
 
 // TIMER
 
-const timerX = canvas.width / 2.4;
+const timerX = canvas.width / 2.355;
 
 function drawTimer() {
   ctx.font = "30px Arial";
@@ -320,5 +320,5 @@ function screen(message, font, textAlign, fillStyle) {
   ctx.font = font;
   ctx.textAlign = textAlign;
   ctx.fillStyle = fillStyle;
-  ctx.fillText(message, canvas.width / 2, canvas.height / 2.5);
+  ctx.fillText(message, canvas.width / 2, canvas.height / 1.8);
 }
