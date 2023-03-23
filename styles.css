@@ -4,37 +4,52 @@ body {
 }
 
 #canvas {
-  border: 5px solid red;
-  margin: 5px auto;
+  border: 5px solid black;
+  margin: 5px 0px 100px 0px;
   background-image: url(assets/citycrosswalk.png);
+  font-family: 'Poppins', sans-serif;
 }
 
-#rules {
-  margin: 5x auto;
+#story {
+  margin: 5px auto;
+  width: 800px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  padding
 }
 
 h1 {
   font-weight: 600;
-  margin: 5px auto;
+  margin: 1px auto;
+  font-size: 50px;
+  font-family: 'Oswald', sans-serif;
 }
 
 h2 {
   font-size: 20px;
   font-weight: 100;
-  margin:10px auto;
+  padding-bottom: 10px;
 }
 .wantedbox {
   width: 260px;
-  border: 5px solid black;
+  border: 9px solid black;
   margin: 5px auto;
+  font-family: 'Poppins', sans-serif;
 }
 
 #wanted {
-  font-size: 1.5rem;
+  font-size: 30px;
   font-weight: bolder;
+  font-family: 'Poppins', sans-serif;
 }
 
+#wantedtext {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+
 img {
-  height: 10rem;
-  width: 7rem;
+  height: 8rem;
+  width: 6rem;
 }

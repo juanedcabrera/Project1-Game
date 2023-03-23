@@ -1,25 +1,6 @@
-// TO-DO
-// Waldo is random and not set
-//
-
-// DOM SELECTORS
-// START BUTTON
-// IMAGES
-// CREATE PEEPS
-// RANDOMIZE PEEPS
-// GAME MECHANICS DEFINITIONS
-// TIMER
-// MOVE PEEPS
-// GAME LOOP
-// WALDO
-// ENDGAME
-// SCREEN MESSAGE
-
 // DOM Selectors
+
 const canvas = document.querySelector("#canvas");
-
-// canvas.addEventListener("mousemove", canvasMouseMoveHandler);
-
 const ctx = canvas.getContext("2d");
 
 let peepNumber = 0;
@@ -29,6 +10,8 @@ let peepNumber = 0;
 let streetSound = new Audio("assets/sf-street-sound.mp3");
 let victorySound = new Audio("assets/victory.wav");
 let awwSound = new Audio("assets/aww.mp3");
+
+//BUTTONS
 
 const buttons = {
   easyButton: {
@@ -55,12 +38,17 @@ drawButton("EASY", 50, 330);
 drawButton("MEDIUM", 320, 330);
 drawButton("HARD", 585, 330);
 
+
+//RULES
+
 screen(
   "You have 60 seconds to find and click on Waldo",
-  "30px Arial",
+  "30px Oswald",
   "center",
   "black"
 );
+
+//DRAW 
 
 function redraw() {
   drawButton("EASY", 50, 330);
@@ -79,12 +67,14 @@ function drawButton(button, x, y) {
   ctx.fillRect(x, y, width, height);
 
   // Button text
-  ctx.font = "15px Arial";
+  ctx.font = "15px Poppins";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillStyle = active ? "white" : "white";
   ctx.fillText(button, x + width / 2, y + height / 2);
 }
+
+// CLICKING BUTTONS
 
 function canvasClickHandler(e) {
   const x = e.offsetX;
@@ -119,10 +109,6 @@ function canvasClickHandler(e) {
   startCountdown();
 }
 
-// function canvasMouseMoveHandler(e) {
-//   console.log(e.offsetX, e.offsetY);
-// }
-
 // IMAGES
 // Array to hold peep images
 let peepImageArray = [];
@@ -154,7 +140,6 @@ class Peep {
     this.img = img;
     peepArray.push(this);
   }
-  // add image to render - this is what is making my image
   // inspired by https://jsfiddle.net/sw4w8qnu/ for the ctx save, translate, restore
   render() {
     ctx.save();
@@ -172,9 +157,9 @@ class Peep {
 }
 
 const waldoImage = new Image();
-waldoImage.src = "assets/waldo3.jpeg";
+waldoImage.src = "assets/waldo.png";
 
-const waldo = new Peep(5, "right", "assets/waldo3.jpeg", waldoImage);
+const waldo = new Peep(5, "right", "assets/waldo.png", waldoImage);
 function initPeep() {
   for (let i = 0; i < peepNumber; i++) {
     const img = new Image();
@@ -184,8 +169,8 @@ function initPeep() {
 }
 
 // RANDOMIZE PEEP
+
 function randomizePeep(peep) {
-  //use code to pick random image from peepImageArray and set it
   peep.width = 150;
   peep.height = 200;
   peep.x = Math.random() < 0.5 ? 0 - peep.width : canvas.width + peep.width;
@@ -205,10 +190,10 @@ let timeInterval;
 
 // TIMER
 
-const timerX = canvas.width / 2.355;
+const timerX = canvas.width / 2.4;
 
 function drawTimer() {
-  ctx.font = "30px Arial";
+  ctx.font = "30px Poppins";
   ctx.fillStyle = "black";
   ctx.textAlign = "start";
   ctx.fillText(`Timer: ${timeSecond}`, timerX, 20, 200);
@@ -218,7 +203,7 @@ function redrawTimer() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   redraw();
   drawTimer();
-  screen("Waldo Escaped", "30px Arial", "center", "black");
+  screen("Waldo Escaped", "30px Oswald", "center", "black");
 }
 
 function startCountdown() {
@@ -236,6 +221,7 @@ function startCountdown() {
 }
 
 // START GAME
+
 function startGame() {
   initPeep();
   gameLoopInterval = setInterval(gameLoop, 60);
@@ -271,10 +257,8 @@ function movePeeps(peepArray) {
 
 function gameLoop() {
   if (!gameOver) {
-    // this is for the movement of the boxes
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawTimer();
-    // making peeps appear
     movePeeps(peepArray);
   }
 }
@@ -298,10 +282,11 @@ canvas.addEventListener("click", (e) => {
 function redrawCatch() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   redraw();
-  screen("Waldo Caught", "30px Arial", "center", "black");
+  screen("You caught Waldo!", "30px Oswald", "center", "black");
 }
 
 // END GAME
+
 function gameEnd() {
   streetSound.load();
   clearInterval(timeInterval);
