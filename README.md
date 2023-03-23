@@ -1,3 +1,5 @@
+Fun game - Click link below!
+https://juanedcabrera.github.io/Waldos-Great-Escape-Game/
 
 # Waldo's Great Escape 🏃
 
