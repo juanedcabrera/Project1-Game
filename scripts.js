@@ -17,36 +17,66 @@
 
 // DOM Selectors
 const canvas = document.querySelector("#canvas");
+canvas.addEventListener("click", canvasClickHandler);
+// canvas.addEventListener("mousemove", canvasMouseMoveHandler);
+
 const ctx = canvas.getContext("2d");
+
+let peepNumber = 0 
 
 //SOUNDS
 
-let streetSound = new Audio('assets/sf-street-sound.mp3')
-let victorySound = new Audio('assets/victory.wav')
-let awwSound = new Audio('assets/aww.mp3')
+let streetSound = new Audio("assets/sf-street-sound.mp3");
+let victorySound = new Audio("assets/victory.wav");
+let awwSound = new Audio("assets/aww.mp3");
 
-// START BUTTON
-const canvStartBtn = document.createElement("button");
-canvStartBtn.x = 325;
-canvStartBtn.y = 225;
-canvStartBtn.width = 150;
-canvStartBtn.height = 40;
-screen("Rules: 60 seconds to find and click on Waldo", "30px Arial", "center", "black")
-redraw();
+
+const buttons = {
+  easyButton: {
+    x: 50,
+    y: 225,
+    w: 150,
+    h: 40,
+  },
+  mediumButton: {
+    x: 320,
+    y: 225,
+    w: 150,
+    h: 40,
+  },
+  hardButton: {
+    x: 585,
+    y: 225,
+    w: 150,
+    h: 40,
+  },
+};
+
+drawButton("EASY", 50, 225);
+drawButton("MEDIUM", 320, 225);
+drawButton("HARD", 585, 225)
+
+screen(
+  "You have 60 seconds to find and click on Waldo",
+  "30px Arial",
+  "center",
+  "black"
+);
 
 
 function redraw() {
-  drawButton(canvStartBtn, 325, 225);
+  drawButton("EASY", 50, 225);
+  drawButton("MEDIUM", 325, 225);
+  drawButton("HARD", 575, 225)
 }
 
-function drawButton(el, x, y) {
-  const active = document.activeElement === el;
+function drawButton(button, x, y) {
+  const active = false;
   const width = 150;
   const height = 40;
-  canvas.addEventListener("click", canvasClickHandler, { once: true });
 
   // Button background
-  ctx.fillStyle = active ? "pink" : "lightgray";
+  ctx.fillStyle = active ? "lightgray" : "gray";
   ctx.fillRect(x, y, width, height);
 
   // Button text
@@ -54,22 +84,43 @@ function drawButton(el, x, y) {
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillStyle = active ? "blue" : "black";
-  ctx.fillText("Start", x + width / 2, y + height / 2);
+  ctx.fillText(button, x + width / 2, y + height / 2);
 }
 
 function canvasClickHandler(e) {
-  if (
-    e.offsetX >= canvStartBtn.x &&
-    e.offsetX <= canvStartBtn.x + canvStartBtn.width &&
-    e.offsetY >= canvStartBtn.y &&
-    e.offsetY <= canvStartBtn.y + canvStartBtn.height
-  ) {
+  const x = e.offsetX;
+  const y = e.offsetY;
+  
+
+  if (x >= buttons.easyButton.x && x <= buttons.easyButton.x + buttons.easyButton.w &&
+      y >= buttons.easyButton.y && y <= buttons.easyButton.y + buttons.easyButton.h) {
+      peepNumber = 10
+  }
+  
+  else if (x >= buttons.mediumButton.x && x <= buttons.mediumButton.x + buttons.mediumButton.w &&
+      y >= buttons.mediumButton.y && y <= buttons.mediumButton.y + buttons.mediumButton.h) {
+        console.log(peepArray.length, "hi medium");
+        peepNumber = 30
+  }
+  
+  else if (x >= buttons.hardButton.x && x <= buttons.hardButton.x + buttons.hardButton.w &&
+      y >= buttons.hardButton.y && y <= buttons.hardButton.y + buttons.hardButton.h) {
+        console.log(peepArray.length);
+        peepNumber = 54
+  }
+  else {
+    return}
+
     startGame();
     startCountdown();
-  }
 }
-// IMAGES
 
+// function canvasMouseMoveHandler(e) {
+//   console.log(e.offsetX, e.offsetY);
+// }
+
+
+// IMAGES
 // Array to hold peep images
 let peepImageArray = [];
 
@@ -126,11 +177,12 @@ const waldo = new Peep(
   "assets/waldo3.jpeg",
   waldoImage
 );
-
-for (let i = 0; i < 20; i++) {
+function initPeep() {
+for (let i = 0; i < peepNumber; i++) {
   const img = new Image();
   img.src = peepImageArray[i].src;
   new Peep(5, "left", peepImageArray[i].src, img);
+} 
 }
 
 // RANDOMIZE PEEP
@@ -188,10 +240,12 @@ function startCountdown() {
 
 // START GAME
 function startGame() {
+  initPeep()
   gameLoopInterval = setInterval(gameLoop, 60);
   timeInterval;
   gameOver = false;
   streetSound.play()
+
 }
 
 //MOVE PEEPS
