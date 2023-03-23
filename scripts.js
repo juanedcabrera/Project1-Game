@@ -17,19 +17,18 @@
 
 // DOM Selectors
 const canvas = document.querySelector("#canvas");
-canvas.addEventListener("click", canvasClickHandler);
+
 // canvas.addEventListener("mousemove", canvasMouseMoveHandler);
 
 const ctx = canvas.getContext("2d");
 
-let peepNumber = 0 
+let peepNumber = 0;
 
 //SOUNDS
 
 let streetSound = new Audio("assets/sf-street-sound.mp3");
 let victorySound = new Audio("assets/victory.wav");
 let awwSound = new Audio("assets/aww.mp3");
-
 
 const buttons = {
   easyButton: {
@@ -54,7 +53,7 @@ const buttons = {
 
 drawButton("EASY", 50, 225);
 drawButton("MEDIUM", 320, 225);
-drawButton("HARD", 585, 225)
+drawButton("HARD", 585, 225);
 
 screen(
   "You have 60 seconds to find and click on Waldo",
@@ -63,17 +62,17 @@ screen(
   "black"
 );
 
-
 function redraw() {
   drawButton("EASY", 50, 225);
   drawButton("MEDIUM", 325, 225);
-  drawButton("HARD", 575, 225)
+  drawButton("HARD", 575, 225);
 }
 
 function drawButton(button, x, y) {
   const active = false;
   const width = 150;
   const height = 40;
+  canvas.addEventListener("click", canvasClickHandler, { once: true });
 
   // Button background
   ctx.fillStyle = active ? "lightgray" : "gray";
@@ -90,35 +89,39 @@ function drawButton(button, x, y) {
 function canvasClickHandler(e) {
   const x = e.offsetX;
   const y = e.offsetY;
-  
 
-  if (x >= buttons.easyButton.x && x <= buttons.easyButton.x + buttons.easyButton.w &&
-      y >= buttons.easyButton.y && y <= buttons.easyButton.y + buttons.easyButton.h) {
-      peepNumber = 10
+  if (
+    x >= buttons.easyButton.x &&
+    x <= buttons.easyButton.x + buttons.easyButton.w &&
+    y >= buttons.easyButton.y &&
+    y <= buttons.easyButton.y + buttons.easyButton.h
+  ) {
+    peepNumber = 10;
+  } else if (
+    x >= buttons.mediumButton.x &&
+    x <= buttons.mediumButton.x + buttons.mediumButton.w &&
+    y >= buttons.mediumButton.y &&
+    y <= buttons.mediumButton.y + buttons.mediumButton.h
+  ) {
+    peepNumber = 30;
+  } else if (
+    x >= buttons.hardButton.x &&
+    x <= buttons.hardButton.x + buttons.hardButton.w &&
+    y >= buttons.hardButton.y &&
+    y <= buttons.hardButton.y + buttons.hardButton.h
+  ) {
+    peepNumber = 54;
+  } else {
+    return;
   }
-  
-  else if (x >= buttons.mediumButton.x && x <= buttons.mediumButton.x + buttons.mediumButton.w &&
-      y >= buttons.mediumButton.y && y <= buttons.mediumButton.y + buttons.mediumButton.h) {
-        console.log(peepArray.length, "hi medium");
-        peepNumber = 30
-  }
-  
-  else if (x >= buttons.hardButton.x && x <= buttons.hardButton.x + buttons.hardButton.w &&
-      y >= buttons.hardButton.y && y <= buttons.hardButton.y + buttons.hardButton.h) {
-        console.log(peepArray.length);
-        peepNumber = 54
-  }
-  else {
-    return}
 
-    startGame();
-    startCountdown();
+  startGame();
+  startCountdown();
 }
 
 // function canvasMouseMoveHandler(e) {
 //   console.log(e.offsetX, e.offsetY);
 // }
-
 
 // IMAGES
 // Array to hold peep images
@@ -171,18 +174,13 @@ class Peep {
 const waldoImage = new Image();
 waldoImage.src = "assets/waldo3.jpeg";
 
-const waldo = new Peep(
-  5,
-  "right",
-  "assets/waldo3.jpeg",
-  waldoImage
-);
+const waldo = new Peep(5, "right", "assets/waldo3.jpeg", waldoImage);
 function initPeep() {
-for (let i = 0; i < peepNumber; i++) {
-  const img = new Image();
-  img.src = peepImageArray[i].src;
-  new Peep(5, "left", peepImageArray[i].src, img);
-} 
+  for (let i = 0; i < peepNumber; i++) {
+    const img = new Image();
+    img.src = peepImageArray[i].src;
+    new Peep(5, "left", peepImageArray[i].src, img);
+  }
 }
 
 // RANDOMIZE PEEP
@@ -207,29 +205,28 @@ let timeInterval;
 
 // TIMER
 
-
-const timerX = canvas.width/2.4
+const timerX = canvas.width / 2.4;
 
 function drawTimer() {
-  ctx.font = "30px Arial"
-  ctx.fillStyle = "black"
-  ctx.textAlign = "start"
-  ctx.fillText(`Timer: ${timeSecond}`, timerX, 20, 200)
+  ctx.font = "30px Arial";
+  ctx.fillStyle = "black";
+  ctx.textAlign = "start";
+  ctx.fillText(`Timer: ${timeSecond}`, timerX, 20, 200);
 }
 
 function redrawTimer() {
-  ctx.clearRect (0,0,canvas.width,canvas.height)
-  redraw()
-  drawTimer()
-  screen("Waldo Escaped", "30px Arial", "center", "black")
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  redraw();
+  drawTimer();
+  screen("Waldo Escaped", "30px Arial", "center", "black");
 }
 
 function startCountdown() {
-  timerX
+  timerX;
   timeInterval = setInterval(() => {
     timeSecond--;
     if (timeSecond <= 0) {
-      awwSound.play()
+      awwSound.play();
       clearInterval(timeInterval);
       gameEnd();
       timeSecond = 60;
@@ -240,12 +237,11 @@ function startCountdown() {
 
 // START GAME
 function startGame() {
-  initPeep()
+  initPeep();
   gameLoopInterval = setInterval(gameLoop, 60);
   timeInterval;
   gameOver = false;
-  streetSound.play()
-
+  streetSound.play();
 }
 
 //MOVE PEEPS
@@ -277,7 +273,7 @@ function gameLoop() {
   if (!gameOver) {
     // this is for the movement of the boxes
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawTimer()
+    drawTimer();
     // making peeps appear
     movePeeps(peepArray);
   }
@@ -295,7 +291,7 @@ canvas.addEventListener("click", (e) => {
   ) {
     gameEnd();
     redrawCatch();
-    victorySound.play()
+    victorySound.play();
   }
 });
 
@@ -307,7 +303,7 @@ function redrawCatch() {
 
 // END GAME
 function gameEnd() {
-  streetSound.load()
+  streetSound.load();
   clearInterval(timeInterval);
   clearInterval(gameLoopInterval);
   timeSecond = 60;
@@ -320,9 +316,9 @@ function gameEnd() {
 }
 
 // SCREEN MESSAGE
-function screen (message, font, textAlign, fillStyle) {
-  ctx.font = font
-  ctx.textAlign = textAlign
-  ctx.fillStyle = fillStyle
+function screen(message, font, textAlign, fillStyle) {
+  ctx.font = font;
+  ctx.textAlign = textAlign;
+  ctx.fillStyle = fillStyle;
   ctx.fillText(message, canvas.width / 2, canvas.height / 2.5);
 }
