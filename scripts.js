@@ -110,7 +110,7 @@ function canvasClickHandler(e) {
     y >= buttons.hardButton.y &&
     y <= buttons.hardButton.y + buttons.hardButton.h
   ) {
-    peepNumber = 54;
+    peepNumber = 45;
   } else {
     return;
   }
