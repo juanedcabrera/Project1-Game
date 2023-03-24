@@ -1,12 +1,12 @@
 Fun game - Click link below!
 
-https://juanedcabrera.github.io/Waldos-Great-Escape-Game/
+[Waldo's Great Escape](https://juanedcabrera.github.io/Waldos-Great-Escape-Game/)
 
 # Waldo's Great Escape 🏃
 
 Waldo is tired of waiting to be found. Now he’s on the run and is moving through the crowded streets of New York City. You heard he was in Time Square and are keeping your eye out to catch him in the crowd.
 Check out WaldoStory in the repository files for a full rundown.
-Link here: https://github.com/juanedcabrera/Waldos-Great-Escape-Game/blob/main/WaldoStory
+Link here: [Waldo's Story](https://github.com/juanedcabrera/Waldos-Great-Escape-Game/blob/main/WaldoStory)
 
 TLDR: Waldo/Wilma is designated at the top of the screen. You have 1 minute to find and click on the character. Once the timer is done if you haven’t found the character you’ll get a notification through an image. If you do you win and will get notified by an image.
 
@@ -61,5 +61,5 @@ I think this was a very challenging project. It was not an easy game to create, 
 ## Sources/Acknowledgement
 - OpenPeeps.com for providing open source characters
 - Sounds from PixaBay open source sounds
-- Andrew Smith (https://github.com/continentaldivide) for helping me with useful opinions on ways to move forward.
-- Devin Raleigh for brainstorming with me on bug fixes and guidance.
+- [Andrew Smith](https://github.com/continentaldivide) for helping me with useful opinions on ways to move forward and bugs in my game.
+- [Devin Raleigh](https://github.com/devinkr) for brainstorming with me on bug fixes and guidance.

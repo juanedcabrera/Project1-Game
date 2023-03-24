@@ -169,7 +169,8 @@ function initPeep() {
     const newPeep = new Peep(5, "left", peepImageArray[i].src, img);
     peepArray.push(newPeep) 
   }
-peepArray.push(waldo)
+  // learned about unshift to put 
+peepArray.unshift(waldo)
 }
 
 // RANDOMIZE PEEP
