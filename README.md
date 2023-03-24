@@ -57,3 +57,9 @@ Waldo was always one of my favorite games. With this game I wanted to give the u
 
 ## Reflection
 I think this was a very challenging project. It was not an easy game to create, required a lot of time, effort, and attention to detail to make it work properly. Throughout the development I experienced moments of frustratio, confusion, and even doubted my ability to achieve the intended outcome. These feelings often subsided when I finally got to see movement on the screen or be able to click on Waldo specifically. By facing these challenging moments I feel like I've learned new skills, gained valuable experience, and become more proficient as a developer. While this entire experience was challenging it was incredibly rewarding and made me prideful of my progress.
+
+## Sources/Acknowledgement
+- OpenPeeps.com for providing open source characters
+- Sounds from PixaBay open source sounds
+- Andrew Smith (https://github.com/continentaldivide) for helping me with useful opinions on ways to move forward.
+- Devin Raleigh for brainstorming with me on bug fixes and guidance.
