@@ -38,7 +38,6 @@ drawButton("EASY", 50, 330);
 drawButton("MEDIUM", 320, 330);
 drawButton("HARD", 585, 330);
 
-
 //RULES
 
 screen(
@@ -48,7 +47,7 @@ screen(
   "black"
 );
 
-//DRAW 
+//DRAW
 
 function redraw() {
   drawButton("EASY", 50, 330);
@@ -138,7 +137,7 @@ class Peep {
     this.direction = direction;
     this.src = src;
     this.img = img;
-    peepArray.push(this);
+    // peepArray.push(this);
   }
   // inspired by https://jsfiddle.net/sw4w8qnu/ for the ctx save, translate, restore
   render() {
@@ -158,14 +157,18 @@ class Peep {
 
 const waldoImage = new Image();
 waldoImage.src = "assets/waldo.png";
-
 const waldo = new Peep(5, "right", "assets/waldo.png", waldoImage);
+
 function initPeep() {
+  peepArray = [];
+
   for (let i = 0; i < peepNumber; i++) {
     const img = new Image();
     img.src = peepImageArray[i].src;
-    new Peep(5, "left", peepImageArray[i].src, img);
+    const newPeep = new Peep(5, "left", peepImageArray[i].src, img);
+    peepArray.push(newPeep) 
   }
+peepArray.push(waldo)
 }
 
 // RANDOMIZE PEEP
