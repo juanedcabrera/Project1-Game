@@ -4,9 +4,9 @@ https://juanedcabrera.github.io/Waldos-Great-Escape-Game/
 
 # Waldo's Great Escape 🏃
 
-Waldo is tired of waiting to be found. He’s been on the run for quite some time and continues to be caught. Now he’s on the run and is moving through the crowded streets of New York City. You heard he was in broadway and are keeping your eye out in case you see him pass by you. He has many disguises now so it’s no longer just the red striped lanky guy with a beanie. Catch him and you win, don’t and he will be gone forever.
-
-
+Waldo is tired of waiting to be found. Now he’s on the run and is moving through the crowded streets of New York City. You heard he was in Time Square and are keeping your eye out to catch him in the crowd.
+Check out WaldoStory in the repository files for a full rundown.
+Link here: https://github.com/juanedcabrera/Waldos-Great-Escape-Game/blob/main/WaldoStory
 
 TLDR: Waldo/Wilma is designated at the top of the screen. You have 1 minute to find and click on the character. Once the timer is done if you haven’t found the character you’ll get a notification through an image. If you do you win and will get notified by an image.
 
@@ -17,10 +17,10 @@ TLDR: Waldo/Wilma is designated at the top of the screen. You have 1 minute to f
 
 ## Tech Stack 💻
 
-I plan on using:
-- HTML 5 with Canvas
-- Cascading Style Sheets
-- Javascript
+I used
+- HTML 5: This is housing the framework for the page
+- Cascading Style Sheets: This is where I am styling the headings, wanted sign, and body
+- Javascript: This is where, using Canvas, I am storing all the mechanics of the game. Also controlling the messaging, click-through mechanics, and sound. 
 
 
 ## MVP 🏆
@@ -51,3 +51,9 @@ I plan on using:
 - Canvas - This project will use a many aspects of Canvas, a new language
 - Math - There will be randomization pieces that will need to be created
 - Audio - This will be something that is new to me and I’m not sure how it works
+
+## Approach  Taken
+Waldo was always one of my favorite games. With this game I wanted to give the user the experience of finding and clicking Waldo without knowing the next time that he would be in the same spot. Drawing inspiration from games like Assasin's Creed, I thought it would be cool if Waldo could blend in a crowd. Using https://www.openpeeps.com/, an open source illustration library of characters, I felt I had the framework to build what I had in mind. I built out pseudocode and initial files to prepare my thought process.  When I started starting with rectangles that would initialize and move from right to left. I then added Waldo and start button so the game could start and you could click on Waldo to initialize end game process. Then I addeed a timer and put in a feature to reset the game at the end of the timer or when you clicked on Waldo. Increased number of peeps (people on the screen) and got a loop to run through the creation of the peeps. Then I added flipping of the images so the people are facing the direction they are walking. I then put the start button from in the HTML to on the Canvas and added screen messaging through the Canvas. Then I added rules, sound, and styling while also fixing bugs.
+
+## Reflection
+I think this was a very challenging project. It was not an easy game to create, required a lot of time, effort, and attention to detail to make it work properly. Throughout the development I experienced moments of frustratio, confusion, and even doubted my ability to achieve the intended outcome. These feelings often subsided when I finally got to see movement on the screen or be able to click on Waldo specifically. By facing these challenging moments I feel like I've learned new skills, gained valuable experience, and become more proficient as a developer. While this entire experience was challenging it was incredibly rewarding and made me prideful of my progress.

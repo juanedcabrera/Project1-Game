@@ -154,11 +154,12 @@ class Peep {
     ctx.restore();
   }
 }
-
+// Waldo currently is hardcoded but would like to randomize later
 const waldoImage = new Image();
 waldoImage.src = "assets/waldo.png";
 const waldo = new Peep(5, "right", "assets/waldo.png", waldoImage);
 
+// Initializes the peeps into the peepArray and puts in Waldo
 function initPeep() {
   peepArray = [];
 
@@ -172,7 +173,7 @@ peepArray.push(waldo)
 }
 
 // RANDOMIZE PEEP
-
+// Takes the peeps and randomizes location, speed, direction
 function randomizePeep(peep) {
   peep.width = 150;
   peep.height = 200;
@@ -182,6 +183,31 @@ function randomizePeep(peep) {
   //this stops the peek-a-boo
   peep.direction = peep.x > 100 ? "left" : "right";
   peep.src = peep.src;
+}
+
+//MOVE PEEPS
+
+function movePeeps(peepArray) {
+  peepArray.forEach((peep) => {
+
+    // moving the peep left or right
+    if (peep.direction === "left") {
+      peep.x -= peep.speed;
+    } else {
+      peep.x += peep.speed;
+    }
+    // staying in canvas
+    if (
+      peep.x < -peep.width ||
+      peep.x > canvas.width + peep.width ||
+      peep.y > canvas.height
+    ) {
+      randomizePeep(peep);
+    }
+
+    // draw peep
+    peep.render();
+  });
 }
 
 // GAME MECHANICS
@@ -195,6 +221,7 @@ let timeInterval;
 
 const timerX = canvas.width / 2.4;
 
+// Put timer on Canvas
 function drawTimer() {
   ctx.font = "30px Poppins";
   ctx.fillStyle = "black";
@@ -202,6 +229,7 @@ function drawTimer() {
   ctx.fillText(`Timer: ${timeSecond}`, timerX, 20, 200);
 }
 
+// Redraw the timer and buttons for when timer runs out
 function redrawTimer() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   redraw();
@@ -209,6 +237,7 @@ function redrawTimer() {
   screen("Waldo Escaped", "30px Oswald", "center", "black");
 }
 
+// Countdown timer from 60 to 0
 function startCountdown() {
   timerX;
   timeInterval = setInterval(() => {
@@ -233,28 +262,6 @@ function startGame() {
   streetSound.play();
 }
 
-//MOVE PEEPS
-
-function movePeeps(peepArray) {
-  peepArray.forEach((peep) => {
-    // moving the peep left or right
-    if (peep.direction === "left") {
-      peep.x -= peep.speed;
-    } else {
-      peep.x += peep.speed;
-    }
-    // staying in canvas
-    if (
-      peep.x < -peep.width ||
-      peep.x > canvas.width + peep.width ||
-      peep.y > canvas.height
-    ) {
-      randomizePeep(peep);
-    }
-    // draw peep
-    peep.render();
-  });
-}
 
 // GAME LOOP
 
@@ -281,7 +288,7 @@ canvas.addEventListener("click", (e) => {
     victorySound.play();
   }
 });
-
+// Redraw buttons and add message
 function redrawCatch() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   redraw();
@@ -289,13 +296,12 @@ function redrawCatch() {
 }
 
 // END GAME
-
+// Reset everything to how it was
 function gameEnd() {
   streetSound.load();
   clearInterval(timeInterval);
   clearInterval(gameLoopInterval);
   timeSecond = 60;
-  // timer.innerText = `:${timeSecond}`;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   gameOver = true;
   peepArray.forEach((peep) => {
