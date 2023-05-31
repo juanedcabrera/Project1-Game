@@ -10,9 +10,16 @@ Link here: [Waldo's Story](https://github.com/juanedcabrera/Waldos-Great-Escape-
 
 TLDR: Waldo/Wilma is designated at the top of the screen. You have 1 minute to find and click on the character. Once the timer is done if you haven’t found the character you’ll get a notification through an image. If you do you win and will get notified by an image.
 
+*** BONUS: If you are comfortable reading code there is a secret post credit scene. After Waldo is captured and he is taken to jail, he wants to get out but needs your help. ***
+
 
 ## Wireframe 👀 
 ![Waldo Great Escape Wireframe](https://github.com/juanedcabrera/Project1-Game/blob/main/Waldo's%20Great%20Escape%20Wireframe%20-%20Updated.png?raw=true "Waldo Great Escape Wireframe")
+
+## Final Look 📸
+![Waldo Great Escape Final Look Start Picture](./start.png)
+
+![Waldo Great Escape Final Look in Action](./live.png)
 
 
 ## Tech Stack 💻
